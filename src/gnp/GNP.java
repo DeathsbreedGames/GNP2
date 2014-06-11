@@ -183,6 +183,7 @@ public class GNP extends Applet implements Runnable, KeyListener {
 			else if(ballLastTouch == 4) { score4++; }
 
 			ball = new Ball(WIDTH / 2, HEIGHT / 2);
+			ballLastTouch = 0;
 		}
 		if(ball.getX() >= WIDTH) {
 			if(ballLastTouch == 0 || ballLastTouch == 2) { score2--; }
@@ -191,6 +192,7 @@ public class GNP extends Applet implements Runnable, KeyListener {
 			else if(ballLastTouch == 4) { score4++; }
 
 			ball = new Ball(WIDTH / 2, HEIGHT / 2);
+			ballLastTouch = 0;
 		}
 		if(ball.getY() <= 0) {
 			if(ballLastTouch == 0 || ballLastTouch == 3) { score3--; }
@@ -199,6 +201,7 @@ public class GNP extends Applet implements Runnable, KeyListener {
 			else if(ballLastTouch == 4) { score4++; }
 
 			ball = new Ball(WIDTH / 2, HEIGHT / 2);
+			ballLastTouch = 0;
 		}
 		if(ball.getY() >= HEIGHT) {
 			if(ballLastTouch == 0 || ballLastTouch == 4) { score4--; }
@@ -207,6 +210,7 @@ public class GNP extends Applet implements Runnable, KeyListener {
 			else if(ballLastTouch == 3) { score3++; }
 
 			ball = new Ball(WIDTH / 2, HEIGHT / 2);
+			ballLastTouch = 0;
 		}
 	}
 
