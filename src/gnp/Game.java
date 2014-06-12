@@ -51,8 +51,9 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		this.width = w;
 		this.height = h;
 		setSize(width, height);
-		setFocusable(true);
 		setVisible(true);
+		setFocusable(true);
+		requestFocusInWindow();
 
 		try {
 			bg = ImageIO.read(this.getClass().getResource("assets/gfx/bg.jpg"));

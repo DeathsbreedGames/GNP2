@@ -4,4 +4,5 @@ build.sh
 # Ignore all binaries.
 bin/*
 
+# Ignore the test HTML file.
 *.html
