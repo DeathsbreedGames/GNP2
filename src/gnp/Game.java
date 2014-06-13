@@ -54,6 +54,8 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		setFocusable(true);
 		requestFocusInWindow();
 
+		addKeyListener(this);
+
 		try {
 			bg = ImageIO.read(this.getClass().getResource("assets/gfx/bg.jpg"));
 			bluePaddle = ImageIO.read(this.getClass().getResource("assets/gfx/Paddle_blue.png"));
@@ -73,8 +75,6 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 		player1.setVertical(true);
 		player2.setVertical(true);
-
-		addKeyListener(this);
 
 		start();
 	}
