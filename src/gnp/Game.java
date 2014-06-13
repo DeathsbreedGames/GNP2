@@ -1,13 +1,11 @@
 package gnp;
 
 import javax.swing.*;
-import java.applet.Applet;
 import javax.imageio.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
-import java.net.*;
 
 import gnp.sprites.*;
 
@@ -52,6 +50,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		this.height = h;
 		setSize(width, height);
 		setVisible(true);
+		setBackground(Color.WHITE);
 		setFocusable(true);
 		requestFocusInWindow();
 
