@@ -8,6 +8,7 @@ import java.awt.image.*;
 import java.awt.event.*;
 
 import gnp.sprites.*;
+import gnp.utils.*;
 
 /**
  * @author Nicolás A. Ortega
@@ -16,7 +17,7 @@ import gnp.sprites.*;
  * @year 2014
  * 
  */
-public class Game extends JPanel implements Runnable, KeyListener {
+public class Game extends JPanel implements Runnable {
 	// Basic dimensions
 	private int width, height;
 
@@ -54,7 +55,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		setFocusable(true);
 		requestFocusInWindow();
 
-		addKeyListener(this);
+		addKeyListener(new InputHandler());
 
 		try {
 			bg = ImageIO.read(this.getClass().getResource("assets/gfx/bg.jpg"));
@@ -136,6 +137,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 		while(t == gameloop) {
 			try {
+				handleInput();
 				gameUpdate();
 
 				Thread.sleep(20);
@@ -145,6 +147,28 @@ public class Game extends JPanel implements Runnable, KeyListener {
 			// Runs the paintComponent method
 			repaint();
 		}
+	}
+
+	private void handleInput() {
+		if(InputHandler.wPressed) { player1.setMoveUp(true); }
+		else { player1.setMoveUp(false); }
+		if(InputHandler.sPressed) { player1.setMoveDown(true); }
+		else { player1.setMoveDown(false); }
+
+		if(InputHandler.upPressed) { player2.setMoveUp(true); }
+		else { player2.setMoveUp(false); }
+		if(InputHandler.downPressed) { player2.setMoveDown(true); }
+		else { player2.setMoveDown(false); }
+
+		if(InputHandler.vPressed) { player3.setMoveLeft(true); }
+		else { player3.setMoveLeft(false); }
+		if(InputHandler.bPressed) { player3.setMoveRight(true); }
+		else { player3.setMoveRight(false); }
+
+		if(InputHandler.commaPressed) { player4.setMoveLeft(true); }
+		else { player4.setMoveLeft(false); }
+		if(InputHandler.periodPressed) { player4.setMoveRight(true); }
+		else { player4.setMoveRight(false); }
 	}
 
 	private void gameUpdate() {
@@ -157,7 +181,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		ball.update();
 	}
 
-	public void checkCollisions() {
+	private void checkCollisions() {
 		double newAngle;
 
 		if(ball.getBounds().intersects(player1.getBounds())) {
@@ -221,30 +245,4 @@ public class Game extends JPanel implements Runnable, KeyListener {
 			ballLastTouch = 0;
 		}
 	}
-
-	public void keyPressed(KeyEvent ke) {
-		System.out.println("A key was pressed.");
-		int keyCode = ke.getKeyCode();
-		if(keyCode == KeyEvent.VK_W) { player1.setMoveUp(true); }
-		if(keyCode == KeyEvent.VK_S) { player1.setMoveDown(true); }
-		if(keyCode == KeyEvent.VK_UP) { player2.setMoveUp(true); }
-		if(keyCode == KeyEvent.VK_DOWN) { player2.setMoveDown(true); }
-		if(keyCode == KeyEvent.VK_V) { player3.setMoveLeft(true); }
-		if(keyCode == KeyEvent.VK_B) { player3.setMoveRight(true); }
-		if(keyCode == KeyEvent.VK_COMMA) { player4.setMoveLeft(true); }
-		if(keyCode == KeyEvent.VK_PERIOD) { player4.setMoveRight(true); }
-	}
-	public void keyReleased(KeyEvent ke) {
-		System.out.println("A key was released.");
-		int keyCode = ke.getKeyCode();
-		if(keyCode == KeyEvent.VK_W) { player1.setMoveUp(false); }
-		if(keyCode == KeyEvent.VK_S) { player1.setMoveDown(false); }
-		if(keyCode == KeyEvent.VK_UP) { player2.setMoveUp(false); }
-		if(keyCode == KeyEvent.VK_DOWN) { player2.setMoveDown(false); }
-		if(keyCode == KeyEvent.VK_V) { player3.setMoveLeft(false); }
-		if(keyCode == KeyEvent.VK_B) { player3.setMoveRight(false); }
-		if(keyCode == KeyEvent.VK_COMMA) { player4.setMoveLeft(false); }
-		if(keyCode == KeyEvent.VK_PERIOD) { player4.setMoveRight(false); }
-	}
-	public void keyTyped(KeyEvent ke) {}
 }
