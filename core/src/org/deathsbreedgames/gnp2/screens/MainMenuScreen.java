@@ -156,8 +156,8 @@ public class MainMenuScreen extends BaseScreen {
 			buttonFont.draw(batch, "Credits", 215, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			textFont.draw(batch, "This program is Free Software and is licenced with the GNU", 20, 400);
-			textFont.draw(batch, "GPLv3 license. The all art in this game is license with a", 20, 370);
-			textFont.draw(batch, "CC-BY-SA license. Follows the link to the source-code:", 20, 340);
+			textFont.draw(batch, "GPLv3 license. The all art in this game is license under a", 20, 370);
+			textFont.draw(batch, "CC-BY-SA  license. Follows the link to the source-code:", 20, 340);
 			textFont.draw(batch, "https://github.com/DeathsbreedGames/GNP2", 60, 310);
 			textFont.draw(batch, "For more projects by Deathsbreed visit of the following:", 20, 260);
 			textFont.draw(batch, "https://github.com/DeathsbreedGames", 60, 230);

@@ -13,7 +13,6 @@ import org.deathsbreedgames.gnp2.screens.*;
  * 
  */
 public class Game extends com.badlogic.gdx.Game {
-	public static final boolean DEBUG = true;
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
 
