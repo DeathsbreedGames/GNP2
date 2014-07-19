@@ -2,6 +2,7 @@ package org.deathsbreedgames.gnp2.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -95,6 +96,13 @@ public class MainMenuScreen extends BaseScreen {
 				Gdx.input.setInputProcessor(otherStage);
 			}
 		});
+
+		if(Gdx.app.getType() == ApplicationType.Desktop) {
+			TextButton exitButton = new TextButton("Exit", buttonStyle);
+			exitButton.setPosition(190, 130);
+			mainStage.addActor(exitButton);
+			exitButton.addListener(new ChangeListener() { public void changed(ChangeEvent event, Actor actor) { Gdx.app.exit(); } });
+		}
 	}
 
 	private void setupOtherMenu() {
@@ -148,7 +156,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "https://github.com/DeathsbreedGames", 60, 230);
 			textFont.draw(batch, "https://github.com/Deathsbreed", 60, 200);
 			textFont.draw(batch, "http://themusicinnoise.net", 60, 170);
-			textFont.draw(batch, "v0.2", 455, 25);
+			textFont.draw(batch, "v0.3", 455, 25);
 			batch.end();
 		}
 	}
