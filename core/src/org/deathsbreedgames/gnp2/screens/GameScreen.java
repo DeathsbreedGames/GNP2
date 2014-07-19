@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 
 import org.deathsbreedgames.gnp2.renderers.RenderGame;
 import org.deathsbreedgames.gnp2.entities.*;
@@ -34,6 +35,7 @@ public class GameScreen extends BaseScreen {
 	// Audio:
 	private Sound hit;
 	private Sound score;
+	private Music music;
 
 	// Scoring system
 	private int ballLastTouch = -1;
@@ -52,6 +54,9 @@ public class GameScreen extends BaseScreen {
 
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("sfx/The_Machines.ogg"));
+		music.play();
+		music.setLooping(true);
 
 		for(int i = 0; i < scores.length; i++) { scores[i] = 0; }
 	}
@@ -152,12 +157,16 @@ public class GameScreen extends BaseScreen {
 
 		oldPausePressed = newPausePressed;
 
-		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { game.setScreen(new MainMenuScreen(game)); }
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			if(music.isPlaying()) { music.stop(); }
+			game.setScreen(new MainMenuScreen(game));
+		}
 	}
 
 	@Override
 	public void dispose() {
 		hit.dispose();
 		score.dispose();
+		music.dispose();
 	}
 }
