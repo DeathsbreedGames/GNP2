@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,43 +27,85 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * 
  */
 public class MainMenuScreen extends BaseScreen {
-	private Stage stage;
-	private Skin skin;
+	public Stage mainStage;
+	public Stage otherStage;
+	private SpriteBatch batch = new SpriteBatch();
+	private Skin skin = new Skin();
+	private BitmapFont buttonFont = new BitmapFont();
+	private BitmapFont textFont = new BitmapFont();
+	private TextButtonStyle buttonStyle = new TextButtonStyle();
+	public static int currentMenu = 0;
 	public Game game;
 
 	public MainMenuScreen(Game game) {
 		this.game = game;
-		setupMenu();
+		initSetup();
 	}
 
-	private void setupMenu() {
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		skin = new Skin();
+	private void initSetup() {
+		mainStage = new Stage();
+		otherStage = new Stage();
+		Gdx.input.setInputProcessor(mainStage);
 
-		Pixmap pixmap = new Pixmap(60, 40, Format.RGBA8888);
-		pixmap.setColor(Color.GREEN);
-		pixmap.fill();
-		skin.add("white", new Texture(pixmap));
+		Pixmap mainPixmap = new Pixmap(120, 40, Format.RGBA8888);
+		mainPixmap.setColor(Color.GREEN);
+		mainPixmap.fill();
+		skin.add("main", new Texture(mainPixmap));
 
-		BitmapFont font = new BitmapFont();
-		font.scale(0.5f);
-		skin.add("default", font);
+		buttonFont.scale(0.5f);
+		skin.add("default", buttonFont);
 
-		TextButtonStyle buttonStyle = new TextButtonStyle();
-		buttonStyle.up = skin.newDrawable("white", Color.BLACK);
-		buttonStyle.down = skin.newDrawable("white", Color.BLACK);
-		buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
+		textFont.scale(0.1f);
+
+		buttonStyle.up = skin.newDrawable("main", Color.BLACK);
+		buttonStyle.down = skin.newDrawable("main", Color.BLACK);
+		buttonStyle.over = skin.newDrawable("main", Color.LIGHT_GRAY);
 		buttonStyle.font = skin.getFont("default");
 		skin.add("default", buttonStyle);
 
-		TextButton button = new TextButton("Play", buttonStyle);
-		button.setPosition(220, 275);
-		stage.addActor(button);
+		setupMainMenu();
+		setupOtherMenu();
+	}
 
-		button.addListener(new ChangeListener() {
+	private void setupMainMenu() {
+		TextButton playButton = new TextButton("Play", buttonStyle);
+		TextButton instructionsButton = new TextButton("Instructions", buttonStyle);
+		TextButton creditsButton = new TextButton("Credits", buttonStyle);
+		playButton.setPosition(190, 250);
+		instructionsButton.setPosition(190, 210);
+		creditsButton.setPosition(190, 170);
+		mainStage.addActor(playButton);
+		mainStage.addActor(instructionsButton);
+		mainStage.addActor(creditsButton);
+
+		playButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				game.setScreen(new GameScreen(game));
+			}
+		});
+		instructionsButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 1;
+				Gdx.input.setInputProcessor(otherStage);
+			}
+		});
+		creditsButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 2;
+				Gdx.input.setInputProcessor(otherStage);
+			}
+		});
+	}
+
+	private void setupOtherMenu() {
+		TextButton backButton = new TextButton("Back", buttonStyle);
+		backButton.setPosition(190, 10);
+		otherStage.addActor(backButton);
+
+		backButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 0;
+				Gdx.input.setInputProcessor(mainStage);
 			}
 		});
 	}
@@ -71,13 +114,44 @@ public class MainMenuScreen extends BaseScreen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
-		stage.draw();
+		if(currentMenu == 0) {
+			mainStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			mainStage.draw();
+		} else if(currentMenu == 1) {
+			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			otherStage.draw();
+
+			batch.begin();
+			buttonFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			buttonFont.draw(batch, "Instructions", 195, 450);
+			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			textFont.draw(batch, "Left User: W, S", 20, 400);
+			textFont.draw(batch, "Right User: UP, DOWN", 20, 370);
+			textFont.draw(batch, "Top User: V, B", 20, 340);
+			textFont.draw(batch, "Bottom User: COMMA, PERIOD", 20, 310);
+			batch.end();
+		} else if(currentMenu == 2) {
+			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			otherStage.draw();
+
+			batch.begin();
+			buttonFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			buttonFont.draw(batch, "Credits", 220, 450);
+			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			textFont.draw(batch, "This program is Free Software and is licenced with the GNU", 20, 400);
+			textFont.draw(batch, "GPLv3 license. The graphics of this game are license with a", 20, 370);
+			textFont.draw(batch, "CC-BY-SA license. Follows the link to the source-code:", 20, 340);
+			textFont.draw(batch, "https://github.com/DeathsbreedGames/GNP2", 60, 310);
+			textFont.draw(batch, "For more projects by Deathsbreed visit of the following:", 20, 260);
+			textFont.draw(batch, "https://github.com/DeathsbreedGames", 60, 230);
+			textFont.draw(batch, "http://www.themusicinnoise.net/", 60, 200);
+			batch.end();
+		}
 	}
 
 	@Override
 	public void dispose() {
-		stage.dispose();
+		mainStage.dispose();
 		skin.dispose();
 	}
 }
