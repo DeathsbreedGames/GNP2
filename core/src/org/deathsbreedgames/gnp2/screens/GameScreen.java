@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.audio.Sound;
 
 import org.deathsbreedgames.gnp2.renderers.RenderGame;
 import org.deathsbreedgames.gnp2.entities.*;
@@ -30,6 +31,10 @@ public class GameScreen extends BaseScreen {
 	// The ball
 	public Ball ball;
 
+	// Audio:
+	private Sound hit;
+	private Sound score;
+
 	// Scoring system
 	private int ballLastTouch = -1;
 	public int[] scores = new int[4];
@@ -44,6 +49,9 @@ public class GameScreen extends BaseScreen {
 		players[2] = new Paddle(175.0f, 440.0f, false, false);
 		players[3] = new Paddle(175.0f, 10.0f, false, false);
 		ball = new Ball(225, 225);
+
+		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
+		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
 
 		for(int i = 0; i < scores.length; i++) { scores[i] = 0; }
 	}
@@ -79,11 +87,13 @@ public class GameScreen extends BaseScreen {
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[0].getX() + 20);
 			ballLastTouch = 0;
+			hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[1].getBounds())) {
 			float newAngle = (((players[1].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) + 90;
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[1].getX() - 26);
 			ballLastTouch = 1;
+			hit.play(0.6f);
 		}
 
 		if(ball.getBounds().overlaps(players[2].getBounds())) {
@@ -91,11 +101,13 @@ public class GameScreen extends BaseScreen {
 			ball.setMoveAngle(newAngle);
 			ball.setY(players[2].getY() - 26);
 			ballLastTouch = 2;
+			hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[3].getBounds())) {
 			float newAngle = (((players[3].getX() + 75) - (ball.getX() + 25) + 60) * 180 / 120);
 			ball.setMoveAngle(newAngle);
 			ball.setY(players[3].getY() + 20);
 			ballLastTouch = 3;
+			hit.play(0.6f);
 		}
 
 		if(ball.getX() <= -50) {
@@ -103,21 +115,25 @@ public class GameScreen extends BaseScreen {
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball = new Ball(225, 225);
+			score.play();
 		} else if(ball.getX() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 1) { scores[1]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball = new Ball(225, 225);
+			score.play();
 		} else if(ball.getY() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 2) { scores[2]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball = new Ball(225, 225);
+			score.play();
 		} else if(ball.getY() <= -50) {
 			if(ballLastTouch == -1 || ballLastTouch == 3) { scores[3]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball = new Ball(225, 225);
+			score.play();
 		}
 
 		if(!paused) {
@@ -137,5 +153,11 @@ public class GameScreen extends BaseScreen {
 		oldPausePressed = newPausePressed;
 
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { game.setScreen(new MainMenuScreen(game)); }
+	}
+
+	@Override
+	public void dispose() {
+		hit.dispose();
+		score.dispose();
 	}
 }
