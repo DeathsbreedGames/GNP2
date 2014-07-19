@@ -1,6 +1,5 @@
 package org.deathsbreedgames.gnp2.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
 /**
@@ -15,11 +14,6 @@ import com.badlogic.gdx.Screen;
  * 
  */
 public class BaseScreen implements Screen {
-	public Game game;
-
-	// Constructor
-	public BaseScreen(Game game) { this.game = game; }
-
 	@Override
 	public void render(float delta) { }
 

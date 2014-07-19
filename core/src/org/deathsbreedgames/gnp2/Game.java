@@ -18,5 +18,5 @@ public class Game extends com.badlogic.gdx.Game {
 	public static final int HEIGHT = 500;
 
 	@Override
-	public void create () { setScreen(new GameScreen(this)); }
+	public void create () { setScreen(new MainMenuScreen(this)); }
 }

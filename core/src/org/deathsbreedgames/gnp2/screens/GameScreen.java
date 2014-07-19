@@ -21,6 +21,7 @@ import org.deathsbreedgames.gnp2.entities.*;
 public class GameScreen extends BaseScreen {
 	// The renderer class
 	private RenderGame renderer;
+	private Game game;
 
 	// The array of players
 	public Paddle[] players = new Paddle[4];
@@ -33,7 +34,7 @@ public class GameScreen extends BaseScreen {
 
 	// Constructor
 	public GameScreen(Game game) {
-		super(game);
+		this.game = game;
 		renderer = new RenderGame(this);
 
 		players[0] = new Paddle(10.0f, 175.0f, true, false);
