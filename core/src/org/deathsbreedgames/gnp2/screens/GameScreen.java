@@ -22,6 +22,7 @@ public class GameScreen extends BaseScreen {
 	// The renderer class
 	private RenderGame renderer;
 	private Game game;
+	private boolean paused = false;
 
 	// The array of players
 	public Paddle[] players = new Paddle[4];
@@ -65,9 +66,11 @@ public class GameScreen extends BaseScreen {
 			if(Gdx.input.isKeyPressed(Input.Keys.COMMA)) { players[3].moveNeg(); }
 		}
 
-		ball.update(delta);
-		for(int i = 0; i < players.length; i++) {
-			players[i].update(delta);
+		if(!paused) {
+			ball.update(delta);
+			for(int i = 0; i < players.length; i++) {
+				players[i].update(delta);
+			}
 		}
 
 		if(ball.getBounds().overlaps(players[0].getBounds())) {
@@ -116,7 +119,11 @@ public class GameScreen extends BaseScreen {
 			ball = new Ball(225, 225);
 		}
 
-		// Draw everything on the screen
-		renderer.render();
+		if(!paused) {
+			// Draw everything on the screen
+			renderer.render();
+		} else {
+			renderer.renderPaused();
+		}
 	}
 }

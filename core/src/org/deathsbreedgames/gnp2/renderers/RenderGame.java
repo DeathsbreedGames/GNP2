@@ -24,8 +24,8 @@ public class RenderGame {
 	public GameScreen screen;
 	// The drawing SpriteBatch
 	private SpriteBatch batch;
-	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
+	private BitmapFont pausedFont;
 
 	// Image variables
 	private Texture bg;
@@ -38,8 +38,10 @@ public class RenderGame {
 	public RenderGame(GameScreen screen) {
 		this.screen = screen;
 		batch = new SpriteBatch();
-		scoreBatch = new SpriteBatch();
 		scoreFont = new BitmapFont();
+		pausedFont = new BitmapFont();
+
+		pausedFont.scale(1.5f);
 
 		bg = new Texture(Gdx.files.internal("gfx/bg.jpg"));
 		pBlue = new Texture(Gdx.files.internal("gfx/Paddle_blue.png"));
@@ -59,25 +61,31 @@ public class RenderGame {
 		batch.draw(pGreen, screen.players[2].getX(), screen.players[2].getY());
 		batch.draw(pPurple, screen.players[3].getX(), screen.players[3].getY());
 		batch.draw(ball, screen.ball.getX(), screen.ball.getY());
-		batch.end();
-
-		scoreBatch.begin();
+		
 		scoreFont.setColor(0.0f, 0.0f, 1.0f, 1.0f);
-		scoreFont.draw(scoreBatch, "" + screen.scores[0], 10, 460);
+		scoreFont.draw(batch, "" + screen.scores[0], 10, 460);
 		scoreFont.setColor(1.0f, 0.0f, 0.0f, 1.0f);
-		scoreFont.draw(scoreBatch, "" + screen.scores[1], 480, 45);
+		scoreFont.draw(batch, "" + screen.scores[1], 480, 45);
 		scoreFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
-		scoreFont.draw(scoreBatch, "" + screen.scores[2], 40, 490);
+		scoreFont.draw(batch, "" + screen.scores[2], 40, 490);
 		scoreFont.setColor(1.0f, 0.0f, 1.0f, 1.0f);
-		scoreFont.draw(scoreBatch, "" + screen.scores[3], 455, 25);
+		scoreFont.draw(batch, "" + screen.scores[3], 455, 25);
 		if(!screen.ball.start) {
 			scoreFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			String timeLeft;
 			if(screen.ball.timer > 60) { timeLeft = "3"; }
 			else if(screen.ball.timer > 30) { timeLeft = "2"; }
 			else { timeLeft = "1"; }
-			scoreFont.draw(scoreBatch, timeLeft, 245, 255);
+			scoreFont.draw(batch, timeLeft, 245, 255);
 		}
-		scoreBatch.end();
+		batch.end();
+	}
+
+	public void renderPaused() {
+		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		pausedFont.draw(batch, "PAUSED", 175, 250);
+		batch.end();
 	}
 }
