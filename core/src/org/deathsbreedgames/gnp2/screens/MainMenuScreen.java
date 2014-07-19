@@ -31,6 +31,7 @@ public class MainMenuScreen extends BaseScreen {
 	public Stage mainStage;
 	public Stage otherStage;
 	private SpriteBatch batch = new SpriteBatch();
+	private Texture gnpLogo;
 	private Skin skin = new Skin();
 	private BitmapFont buttonFont = new BitmapFont();
 	private BitmapFont textFont = new BitmapFont();
@@ -47,6 +48,8 @@ public class MainMenuScreen extends BaseScreen {
 		mainStage = new Stage();
 		otherStage = new Stage();
 		Gdx.input.setInputProcessor(mainStage);
+
+		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
 
 		Pixmap mainPixmap = new Pixmap(120, 40, Format.RGBA8888);
 		mainPixmap.setColor(Color.GREEN);
@@ -125,6 +128,10 @@ public class MainMenuScreen extends BaseScreen {
 		if(currentMenu == 0) {
 			mainStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
 			mainStage.draw();
+
+			batch.begin();
+			batch.draw(gnpLogo, 50, 300);
+			batch.end();
 		} else if(currentMenu == 1) {
 			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
 			otherStage.draw();
@@ -149,7 +156,7 @@ public class MainMenuScreen extends BaseScreen {
 			buttonFont.draw(batch, "Credits", 215, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			textFont.draw(batch, "This program is Free Software and is licenced with the GNU", 20, 400);
-			textFont.draw(batch, "GPLv3 license. The graphics of this game are license with a", 20, 370);
+			textFont.draw(batch, "GPLv3 license. The all art in this game is license with a", 20, 370);
 			textFont.draw(batch, "CC-BY-SA license. Follows the link to the source-code:", 20, 340);
 			textFont.draw(batch, "https://github.com/DeathsbreedGames/GNP2", 60, 310);
 			textFont.draw(batch, "For more projects by Deathsbreed visit of the following:", 20, 260);

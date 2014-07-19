@@ -7,3 +7,4 @@ Paddle_blue.png
 Paddle_green.png
 Paddle_purple.png
 Paddle_red.png
+GNP2.png
