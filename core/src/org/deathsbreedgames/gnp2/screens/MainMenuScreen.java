@@ -122,21 +122,23 @@ public class MainMenuScreen extends BaseScreen {
 			otherStage.draw();
 
 			batch.begin();
-			buttonFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			buttonFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
 			buttonFont.draw(batch, "Instructions", 195, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			textFont.draw(batch, "Left User: W, S", 20, 400);
 			textFont.draw(batch, "Right User: UP, DOWN", 20, 370);
 			textFont.draw(batch, "Top User: V, B", 20, 340);
 			textFont.draw(batch, "Bottom User: COMMA, PERIOD", 20, 310);
+			textFont.draw(batch, "Pause Game: P", 20, 280);
+			textFont.draw(batch, "Quit to Menu: ESC", 20, 250);
 			batch.end();
 		} else if(currentMenu == 2) {
 			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
 			otherStage.draw();
 
 			batch.begin();
-			buttonFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			buttonFont.draw(batch, "Credits", 220, 450);
+			buttonFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
+			buttonFont.draw(batch, "Credits", 215, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			textFont.draw(batch, "This program is Free Software and is licenced with the GNU", 20, 400);
 			textFont.draw(batch, "GPLv3 license. The graphics of this game are license with a", 20, 370);
