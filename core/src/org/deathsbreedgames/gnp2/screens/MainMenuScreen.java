@@ -144,7 +144,8 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "https://github.com/DeathsbreedGames/GNP2", 60, 310);
 			textFont.draw(batch, "For more projects by Deathsbreed visit of the following:", 20, 260);
 			textFont.draw(batch, "https://github.com/DeathsbreedGames", 60, 230);
-			textFont.draw(batch, "http://www.themusicinnoise.net/", 60, 200);
+			textFont.draw(batch, "https://github.com/Deathsbreed", 60, 200);
+			textFont.draw(batch, "http://themusicinnoise.net", 60, 170);
 			batch.end();
 		}
 	}
