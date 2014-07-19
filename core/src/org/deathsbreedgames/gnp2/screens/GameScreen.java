@@ -23,6 +23,7 @@ public class GameScreen extends BaseScreen {
 	private RenderGame renderer;
 	private Game game;
 	private boolean paused = false;
+	private boolean oldPausePressed = false;
 
 	// The array of players
 	public Paddle[] players = new Paddle[4];
@@ -125,5 +126,16 @@ public class GameScreen extends BaseScreen {
 		} else {
 			renderer.renderPaused();
 		}
+
+		boolean newPausePressed = Gdx.input.isKeyPressed(Input.Keys.P);
+
+		if(newPausePressed && !oldPausePressed) {
+			if(paused) { paused = false; }
+			else { paused = true; }
+		}
+
+		oldPausePressed = newPausePressed;
+
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { game.setScreen(new MainMenuScreen(game)); }
 	}
 }
