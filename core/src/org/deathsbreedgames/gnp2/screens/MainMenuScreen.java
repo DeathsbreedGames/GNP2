@@ -155,6 +155,7 @@ public class MainMenuScreen extends BaseScreen {
 	@Override
 	public void dispose() {
 		mainStage.dispose();
+		otherStage.dispose();
 		skin.dispose();
 	}
 }
