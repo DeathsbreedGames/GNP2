@@ -48,9 +48,9 @@ public class GameScreen extends BaseScreen {
 
 		ball = new Ball(225, 225);
 		players[0] = new Paddle(10.0f, 175.0f, true, false, ball);
-		players[1] = new Paddle(440.0f, 175.0f, true, true, ball);
-		players[2] = new Paddle(175.0f, 440.0f, false, true, ball);
-		players[3] = new Paddle(175.0f, 10.0f, false, true, ball);
+		players[1] = new Paddle(440.0f, 175.0f, true, false, ball);
+		players[2] = new Paddle(175.0f, 440.0f, false, false, ball);
+		players[3] = new Paddle(175.0f, 10.0f, false, false, ball);
 
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
