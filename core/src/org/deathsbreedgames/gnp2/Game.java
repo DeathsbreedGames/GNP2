@@ -15,6 +15,8 @@ import org.deathsbreedgames.gnp2.screens.*;
 public class Game extends com.badlogic.gdx.Game {
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
+	public static boolean soundOn = true;
+	public static boolean musicOn = true;
 
 	@Override
 	public void create () { setScreen(new MainMenuScreen(this)); }

@@ -21,9 +21,10 @@ import org.deathsbreedgames.gnp2.entities.*;
  * 
  */
 public class GameScreen extends BaseScreen {
+	private Game game;
+	
 	// The renderer class
 	private RenderGame renderer;
-	private Game game;
 	private boolean paused = false;
 	private boolean oldPausePressed = false;
 
@@ -55,8 +56,10 @@ public class GameScreen extends BaseScreen {
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("sfx/The_Machines.ogg"));
-		music.play();
-		music.setLooping(true);
+		if(game.musicOn) {
+			music.play();
+			music.setLooping(true);
+		}
 
 		for(int i = 0; i < scores.length; i++) { scores[i] = 0; }
 	}
@@ -92,13 +95,13 @@ public class GameScreen extends BaseScreen {
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[0].getX() + 20);
 			ballLastTouch = 0;
-			hit.play(0.6f);
+			if(game.soundOn) hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[1].getBounds())) {
 			float newAngle = (((players[1].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) + 90;
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[1].getX() - 26);
 			ballLastTouch = 1;
-			hit.play(0.6f);
+			if(game.soundOn) hit.play(0.6f);
 		}
 
 		if(ball.getBounds().overlaps(players[2].getBounds())) {
@@ -106,13 +109,13 @@ public class GameScreen extends BaseScreen {
 			ball.setMoveAngle(newAngle);
 			ball.setY(players[2].getY() - 26);
 			ballLastTouch = 2;
-			hit.play(0.6f);
+			if(game.soundOn) hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[3].getBounds())) {
 			float newAngle = (((players[3].getX() + 75) - (ball.getX() + 25) + 60) * 180 / 120);
 			ball.setMoveAngle(newAngle);
 			ball.setY(players[3].getY() + 20);
 			ballLastTouch = 3;
-			hit.play(0.6f);
+			if(game.soundOn) hit.play(0.6f);
 		}
 
 		if(ball.getX() <= -50) {
