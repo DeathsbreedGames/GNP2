@@ -1,6 +1,6 @@
 package org.deathsbreedgames.gnp2.screens;
 
-import com.badlogic.gdx.Game;
+//import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Intersector;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Music;
 
 import org.deathsbreedgames.gnp2.renderers.RenderGame;
 import org.deathsbreedgames.gnp2.entities.*;
+import org.deathsbreedgames.gnp2.Game;
 
 /**
  * @author Nicolás A. Ortega
@@ -123,25 +124,25 @@ public class GameScreen extends BaseScreen {
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball.reset(225, 225);
-			score.play();
+			if(game.soundOn) score.play();
 		} else if(ball.getX() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 1) { scores[1]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball.reset(225, 225);
-			score.play();
+			if(game.soundOn) score.play();
 		} else if(ball.getY() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 2) { scores[2]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball.reset(225, 225);
-			score.play();
+			if(game.soundOn) score.play();
 		} else if(ball.getY() <= -50) {
 			if(ballLastTouch == -1 || ballLastTouch == 3) { scores[3]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
 			ball.reset(225, 225);
-			score.play();
+			if(game.soundOn) score.play();
 		}
 
 		if(!paused) {
@@ -164,6 +165,20 @@ public class GameScreen extends BaseScreen {
 			if(music.isPlaying()) { music.stop(); }
 			game.setScreen(new MainMenuScreen(game));
 		}
+	}
+	
+	public boolean getSoundOn() { return game.soundOn; }
+	public boolean getMusicOn() { return game.musicOn; }
+	
+	public void setSoundOff() { game.soundOn = false; }
+	public void setSoundOn() { game.soundOn = true; }
+	public void setMusicOff() {
+		game.musicOn = false;
+		this.music.stop();
+	}
+	public void setMusicOn() {
+		game.musicOn = true;
+		this.music.play();
 	}
 
 	@Override

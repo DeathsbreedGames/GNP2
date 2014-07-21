@@ -2,9 +2,18 @@ package org.deathsbreedgames.gnp2.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import org.deathsbreedgames.gnp2.screens.GameScreen;
 
@@ -21,9 +30,14 @@ import org.deathsbreedgames.gnp2.screens.GameScreen;
  */
 public class RenderGame {
 	// The screen that we get in the constructor
-	public GameScreen screen;
+	private GameScreen screen;
 	// The drawing SpriteBatch
 	private SpriteBatch batch;
+	private Stage buttonStage;
+	private Skin buttonSkin;
+	private BitmapFont buttonFont;
+	private TextButtonStyle buttonStyle;
+	
 	private BitmapFont scoreFont;
 	private BitmapFont pausedFont;
 
@@ -38,6 +52,48 @@ public class RenderGame {
 	public RenderGame(GameScreen screen) {
 		this.screen = screen;
 		batch = new SpriteBatch();
+		buttonStage = new Stage();
+		buttonSkin = new Skin();
+		buttonFont = new BitmapFont();
+		buttonStyle = new TextButtonStyle();
+		
+		Gdx.input.setInputProcessor(buttonStage);
+		
+		Pixmap buttonPixmap = new Pixmap(20, 20, Format.RGBA8888);
+		buttonPixmap.setColor(Color.WHITE);
+		buttonPixmap.fill();
+		buttonSkin.add("buttons", new Texture(buttonPixmap));
+		
+		buttonFont.scale(0.1f);
+		buttonSkin.add("default", buttonFont);
+		
+		buttonStyle.up = buttonSkin.newDrawable("buttons", Color.GREEN);
+		buttonStyle.down = buttonSkin.newDrawable("buttons", Color.GREEN);
+		buttonStyle.over = buttonSkin.newDrawable("buttons", Color.LIGHT_GRAY);
+		buttonStyle.checked = buttonSkin.newDrawable("buttons", Color.RED);
+		buttonStyle.font = buttonSkin.getFont("default");
+		buttonSkin.add("default", buttonStyle);
+		
+		TextButton soundButton = new TextButton("S", buttonStyle);
+		soundButton.setPosition(480, 480);
+		buttonStage.addActor(soundButton);
+		soundButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(getSoundOn()) { setSoundOff(); }
+				else { setSoundOn(); }
+			}
+		});
+		
+		TextButton musicButton = new TextButton("M", buttonStyle);
+		musicButton.setPosition(460, 480);
+		buttonStage.addActor(musicButton);
+		musicButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(getMusicOn()) { setMusicOff(); }
+				else { setMusicOn(); }
+			}
+		});
+		
 		scoreFont = new BitmapFont();
 		pausedFont = new BitmapFont();
 
@@ -79,6 +135,9 @@ public class RenderGame {
 			scoreFont.draw(batch, timeLeft, 245, 255);
 		}
 		batch.end();
+		
+		buttonStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+		buttonStage.draw();
 	}
 
 	public void renderPaused() {
@@ -87,7 +146,18 @@ public class RenderGame {
 		batch.begin();
 		pausedFont.draw(batch, "PAUSED", 175, 250);
 		batch.end();
+		
+		buttonStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+		buttonStage.draw();
 	}
+	
+	private boolean getSoundOn() { return screen.getSoundOn(); }
+	private boolean getMusicOn() { return screen.getMusicOn(); }
+	
+	private void setSoundOn() { screen.setSoundOn(); }
+	private void setSoundOff() { screen.setSoundOff(); }
+	private void setMusicOn() { screen.setMusicOn(); }
+	private void setMusicOff() { screen.setMusicOff(); }
 
 	public void dispose() {
 		bg.dispose();
