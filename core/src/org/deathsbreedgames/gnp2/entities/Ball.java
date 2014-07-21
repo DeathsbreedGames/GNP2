@@ -38,6 +38,15 @@ public class Ball extends Entity {
 			timer--;
 		} else if(timer > 0) { timer--; }
 	}
+	
+	public void reset(float x, float y) {
+		timer = 90;
+		start = false;
+		setX(x);
+		setY(y);
+		setVelX(0.0f);
+		setVelY(0.0f);
+	}
 
 	public Rectangle getBounds() { return bounds; }
 	public float getMaxVel() { return MAXVEL; }

@@ -46,11 +46,11 @@ public class GameScreen extends BaseScreen {
 		this.game = game;
 		renderer = new RenderGame(this);
 
-		players[0] = new Paddle(10.0f, 175.0f, true, false);
-		players[1] = new Paddle(440.0f, 175.0f, true, false);
-		players[2] = new Paddle(175.0f, 440.0f, false, false);
-		players[3] = new Paddle(175.0f, 10.0f, false, false);
 		ball = new Ball(225, 225);
+		players[0] = new Paddle(10.0f, 175.0f, true, false, ball);
+		players[1] = new Paddle(440.0f, 175.0f, true, true, ball);
+		players[2] = new Paddle(175.0f, 440.0f, false, true, ball);
+		players[3] = new Paddle(175.0f, 10.0f, false, true, ball);
 
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
@@ -119,25 +119,25 @@ public class GameScreen extends BaseScreen {
 			if(ballLastTouch == -1 || ballLastTouch == 0) { scores[0]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
-			ball = new Ball(225, 225);
+			ball.reset(225, 225);
 			score.play();
 		} else if(ball.getX() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 1) { scores[1]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
-			ball = new Ball(225, 225);
+			ball.reset(225, 225);
 			score.play();
 		} else if(ball.getY() >= 500) {
 			if(ballLastTouch == -1 || ballLastTouch == 2) { scores[2]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
-			ball = new Ball(225, 225);
+			ball.reset(225, 225);
 			score.play();
 		} else if(ball.getY() <= -50) {
 			if(ballLastTouch == -1 || ballLastTouch == 3) { scores[3]--; }
 			else { scores[ballLastTouch]++; }
 			ballLastTouch = -1;
-			ball = new Ball(225, 225);
+			ball.reset(225, 225);
 			score.play();
 		}
 
@@ -168,5 +168,6 @@ public class GameScreen extends BaseScreen {
 		hit.dispose();
 		score.dispose();
 		music.dispose();
+		renderer.dispose();
 	}
 }

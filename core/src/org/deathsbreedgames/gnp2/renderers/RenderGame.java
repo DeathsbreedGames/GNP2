@@ -88,4 +88,14 @@ public class RenderGame {
 		pausedFont.draw(batch, "PAUSED", 175, 250);
 		batch.end();
 	}
+
+	public void dispose() {
+		bg.dispose();
+		pBlue.dispose();
+		pRed.dispose();
+		pGreen.dispose();
+		pPurple.dispose();
+		ball.dispose();
+		batch.dispose();
+	}
 }

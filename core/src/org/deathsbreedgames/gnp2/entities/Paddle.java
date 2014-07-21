@@ -15,15 +15,18 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Paddle extends Entity {
 	// Essential variables
+	private final float MAXVEL = 5.0f;
 	private boolean vertical;
 	private boolean ai;
+	private Ball ball;
 	Rectangle bounds;
 
 	// Constructor
-	public Paddle(float x, float y, boolean vertical, boolean ai) {
+	public Paddle(float x, float y, boolean vertical, boolean ai, Ball ball) {
 		super(x, y);
 		this.vertical = vertical;
 		this.ai = ai;
+		this.ball = ball;
 
 		if(vertical) {
 			setBounds(new Rectangle(getX() + 17, getY() + 17, 16.0f, 120.0f));
@@ -33,7 +36,22 @@ public class Paddle extends Entity {
 	}
 
 	public void update(float delta) {
+		if(ai) {
+			if(vertical) {
+				if(ball.getX() - this.getX() > -250 && ball.getX() - this.getX() < 250) {
+					if(ball.getY() > this.getY() + 75) { setVelY(MAXVEL); }
+					else if(ball.getY() < this.getY() + 25) { setVelY(-MAXVEL); }
+				}
+			} else {
+				if(ball.getY() - this.getY() > -250 && ball.getY() - this.getY() < 250) {
+					if(ball.getX() > this.getX() + 75) { setVelX(MAXVEL); }
+					else if(ball.getX() < this.getX() + 25) { setVelX(-MAXVEL); }
+				}
+			}
+		}
+		
 		super.update(delta);
+		
 		if(vertical) {
 			if(getY() < 0.0f) { setY(0.0f); }
 			else if(getY() > 350.0f) { setY(350.0f); }
@@ -41,6 +59,7 @@ public class Paddle extends Entity {
 			if(getX() < 0.0f) { setX(0.0f); }
 			else if(getX() > 350.0f) { setX(350.0f); }
 		}
+		
 		setVelX(0.0f);
 		setVelY(0.0f);
 		setBoundsPosition(getX() + 17, getY() + 17);
@@ -53,11 +72,11 @@ public class Paddle extends Entity {
 	public void setBounds(Rectangle b) { bounds = b; }
 	public void setBoundsPosition(float x, float y) { bounds.setPosition(x, y); }
 	public void movePos() {
-		if(vertical) { setVelY(5.0f); }
-		else { setVelX(5.0f); }
+		if(vertical) { setVelY(MAXVEL); }
+		else { setVelX(MAXVEL); }
 	}
 	public void moveNeg() {
-		if(vertical) { setVelY(-5.0f); }
-		else { setVelX(-5.0f); }
+		if(vertical) { setVelY(-MAXVEL); }
+		else { setVelX(-MAXVEL); }
 	}
 }

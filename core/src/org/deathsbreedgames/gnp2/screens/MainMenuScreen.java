@@ -173,5 +173,7 @@ public class MainMenuScreen extends BaseScreen {
 		mainStage.dispose();
 		otherStage.dispose();
 		skin.dispose();
+		gnpLogo.dispose();
+		batch.dispose();
 	}
 }
