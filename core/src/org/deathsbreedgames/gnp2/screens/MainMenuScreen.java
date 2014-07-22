@@ -53,7 +53,7 @@ public class MainMenuScreen extends BaseScreen {
 		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
 
 		Pixmap mainPixmap = new Pixmap(120, 40, Format.RGBA8888);
-		mainPixmap.setColor(Color.GREEN);
+		mainPixmap.setColor(Color.WHITE);
 		mainPixmap.fill();
 		skin.add("main", new Texture(mainPixmap));
 
@@ -64,7 +64,7 @@ public class MainMenuScreen extends BaseScreen {
 
 		buttonStyle.up = skin.newDrawable("main", Color.BLACK);
 		buttonStyle.down = skin.newDrawable("main", Color.BLACK);
-		buttonStyle.over = skin.newDrawable("main", Color.LIGHT_GRAY);
+		buttonStyle.over = skin.newDrawable("main", Color.GREEN);
 		buttonStyle.font = skin.getFont("default");
 		skin.add("default", buttonStyle);
 
@@ -85,7 +85,7 @@ public class MainMenuScreen extends BaseScreen {
 
 		playButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new GameScreen(game));
+				game.setScreen(new SelectScreen(game));
 			}
 		});
 		instructionsButton.addListener(new ChangeListener() {

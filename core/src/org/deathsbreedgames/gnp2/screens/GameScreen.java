@@ -163,7 +163,7 @@ public class GameScreen extends BaseScreen {
 
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			if(music.isPlaying()) { music.stop(); }
-			game.setScreen(new MainMenuScreen(game));
+			game.setScreen(new SelectScreen(game));
 		}
 	}
 	
