@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import org.deathsbreedgames.gnp2.screens.GameScreen;
+//import org.deathsbreedgames.gnp2.ui.Button;
 
 /**
  * @author Nicolás A. Ortega
@@ -75,6 +76,7 @@ public class RenderGame {
 		buttonSkin.add("default", buttonStyle);
 		
 		TextButton soundButton = new TextButton("S", buttonStyle);
+		//Button soundButton = new Button("S", 20, 20, 0.1f);
 		soundButton.setPosition(480, 480);
 		buttonStage.addActor(soundButton);
 		soundButton.addListener(new ChangeListener() {
