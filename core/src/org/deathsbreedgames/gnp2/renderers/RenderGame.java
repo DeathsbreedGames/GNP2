@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -34,6 +35,14 @@ public class RenderGame {
 	// The drawing SpriteBatch
 	private SpriteBatch batch;
 	
+	// For drawing buttons:
+	private Stage buttonStage;
+	private BitmapFont buttonFont;
+	private TextureAtlas buttonAtlas;
+	private Skin buttonSkin;
+	private TextButton soundButton, musicButton;
+	
+	// Fonts used for info drawing
 	private BitmapFont scoreFont;
 	private BitmapFont pausedFont;
 
@@ -47,15 +56,53 @@ public class RenderGame {
 
 	public RenderGame(GameScreen screen) {
 		this.screen = screen;
-		batch = new SpriteBatch();
+		
+		// Setup buttons
+		buttonStage = new Stage();
+		buttonAtlas = new TextureAtlas("gfx/buttons.pack");
+		buttonSkin = new Skin(buttonAtlas);
+		
+		Gdx.input.setInputProcessor(buttonStage);
+		
+		buttonFont = new BitmapFont();
+		buttonFont.scale(0.1f);
+		
+		TextButtonStyle buttonStyle = new TextButtonStyle();
+		buttonStyle.up = buttonSkin.getDrawable("button_green");
+		buttonStyle.down = buttonSkin.getDrawable("button_green");
+		buttonStyle.checked = buttonSkin.getDrawable("button_red");
+		buttonStyle.font = buttonFont;
+		
+		soundButton = new TextButton("S", buttonStyle);
+		soundButton.pad(0, 10, 0, 10);
+		soundButton.setPosition(Gdx.graphics.getWidth() - soundButton.getWidth(), Gdx.graphics.getHeight() - soundButton.getHeight());
+		buttonStage.addActor(soundButton);
+		soundButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(getSoundOn()) { setSoundOff(); }
+				else { setSoundOn(); }
+			}
+		});
+		
+		musicButton = new TextButton("M", buttonStyle);
+		musicButton.setPosition(soundButton.getX() - musicButton.getWidth(), Gdx.graphics.getHeight() - musicButton.getHeight());
+		buttonStage.addActor(musicButton);
+		musicButton.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(getMusicOn()) { setMusicOff(); }
+				else { setMusicOn(); }
+			}
+		});
 		
 		
-		
+		// Setup drawing fonts
 		scoreFont = new BitmapFont();
 		pausedFont = new BitmapFont();
-
 		pausedFont.scale(1.5f);
-
+		
+		
+		// Setup graphics
+		batch = new SpriteBatch();
 		bg = new Texture(Gdx.files.internal("gfx/bg.jpg"));
 		pBlue = new Texture(Gdx.files.internal("gfx/Paddle_blue.png"));
 		pRed = new Texture(Gdx.files.internal("gfx/Paddle_red.png"));
@@ -92,16 +139,19 @@ public class RenderGame {
 			scoreFont.draw(batch, timeLeft, 245, 255);
 		}
 		batch.end();
+		
+		buttonStage.act(delta);
+		buttonStage.draw();
 	}
 
-	public void renderPaused() {
+	public void renderPaused(float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		pausedFont.draw(batch, "PAUSED", 175, 250);
 		batch.end();
 		
-		buttonStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+		buttonStage.act(delta);
 		buttonStage.draw();
 	}
 	

@@ -147,9 +147,9 @@ public class GameScreen extends BaseScreen {
 
 		if(!paused) {
 			// Draw everything on the screen
-			renderer.render();
+			renderer.render(delta);
 		} else {
-			renderer.renderPaused();
+			renderer.renderPaused(delta);
 		}
 
 		boolean newPausePressed = Gdx.input.isKeyPressed(Input.Keys.P);
