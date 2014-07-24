@@ -2,6 +2,7 @@ package org.deathsbreedgames.gnp2;
 
 import com.badlogic.gdx.Screen;
 
+
 import org.deathsbreedgames.gnp2.screens.*;
 
 /**
@@ -21,5 +22,8 @@ public class Game extends com.badlogic.gdx.Game {
 	public static boolean musicOn = true;
 
 	@Override
-	public void create () { setScreen(new MainMenuScreen(this)); }
+	public void create() { setScreen(new SplashScreen(this)); }
+	
+	@Override
+	public void dispose() { super.dispose(); }
 }
