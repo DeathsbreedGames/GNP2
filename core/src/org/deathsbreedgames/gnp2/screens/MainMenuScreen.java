@@ -2,11 +2,9 @@ package org.deathsbreedgames.gnp2.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,91 +27,88 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class MainMenuScreen extends BaseScreen {
-	public Stage mainStage;
-	public Stage otherStage;
+	public Game game;
 	private SpriteBatch batch = new SpriteBatch();
 	private Texture gnpLogo;
-	private Skin skin = new Skin();
-	private BitmapFont buttonFont = new BitmapFont();
-	private BitmapFont textFont = new BitmapFont();
-	private TextButtonStyle buttonStyle = new TextButtonStyle();
+	private BitmapFont textFont;
+	
+	private Stage mainStage, otherStage;
+	private BitmapFont buttonFont;
+	private TextButtonStyle buttonStyle;
+	
 	public static int currentMenu = 0;
-	public Game game;
 
 	public MainMenuScreen(Game game) {
 		this.game = game;
-		initSetup();
-	}
-
-	private void initSetup() {
+		
+		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
+		textFont = new BitmapFont();
+		textFont.scale(0.1f);
+		
+		
 		mainStage = new Stage();
 		otherStage = new Stage();
+		TextureAtlas buttonAtlas = new TextureAtlas("gfx/buttons.pack");
+		Skin buttonSkin = new Skin(buttonAtlas);
+		
 		Gdx.input.setInputProcessor(mainStage);
-
-		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
-
-		Pixmap mainPixmap = new Pixmap(120, 40, Format.RGBA8888);
-		mainPixmap.setColor(Color.WHITE);
-		mainPixmap.fill();
-		skin.add("main", new Texture(mainPixmap));
-
+		
+		buttonFont = new BitmapFont();
 		buttonFont.scale(0.5f);
-		skin.add("default", buttonFont);
-
-		textFont.scale(0.1f);
-
-		buttonStyle.up = skin.newDrawable("main", Color.BLACK);
-		buttonStyle.down = skin.newDrawable("main", Color.BLACK);
-		buttonStyle.over = skin.newDrawable("main", Color.GREEN);
-		buttonStyle.font = skin.getFont("default");
-		skin.add("default", buttonStyle);
-
-		setupMainMenu();
-		setupOtherMenu();
+		
+		buttonStyle = new TextButtonStyle();
+		buttonStyle.up = buttonSkin.getDrawable("button_green");
+		buttonStyle.down = buttonSkin.getDrawable("button_green");
+		buttonStyle.over = buttonSkin.getDrawable("button_light_green");
+		buttonStyle.font = buttonFont;
+		
+		createButtons();
 	}
-
-	private void setupMainMenu() {
+	
+	private void createButtons() {
 		TextButton playButton = new TextButton("Play", buttonStyle);
-		TextButton instructionsButton = new TextButton("Instructions", buttonStyle);
-		TextButton creditsButton = new TextButton("Credits", buttonStyle);
-		playButton.setPosition(190, 250);
-		instructionsButton.setPosition(190, 210);
-		creditsButton.setPosition(190, 170);
+		playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, 250);
 		mainStage.addActor(playButton);
-		mainStage.addActor(instructionsButton);
-		mainStage.addActor(creditsButton);
-
 		playButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				game.setScreen(new SelectScreen(game));
 			}
 		});
+		
+		TextButton instructionsButton = new TextButton("Instructions", buttonStyle);
+		instructionsButton.setPosition(Gdx.graphics.getWidth() / 2 - instructionsButton.getWidth() / 2, playButton.getY() - instructionsButton.getHeight());
+		mainStage.addActor(instructionsButton);
 		instructionsButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 1;
 				Gdx.input.setInputProcessor(otherStage);
 			}
 		});
+		
+		TextButton creditsButton = new TextButton("Credits", buttonStyle);
+		creditsButton.setPosition(Gdx.graphics.getWidth() / 2 - creditsButton.getWidth() / 2, instructionsButton.getY() - creditsButton.getHeight());
+		mainStage.addActor(creditsButton);
 		creditsButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 2;
 				Gdx.input.setInputProcessor(otherStage);
 			}
 		});
-
+		
 		if(Gdx.app.getType() == ApplicationType.Desktop) {
 			TextButton exitButton = new TextButton("Exit", buttonStyle);
-			exitButton.setPosition(190, 130);
+			exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, creditsButton.getY() - exitButton.getHeight());
 			mainStage.addActor(exitButton);
-			exitButton.addListener(new ChangeListener() { public void changed(ChangeEvent event, Actor actor) { Gdx.app.exit(); } });
+			exitButton.addListener(new ChangeListener() {
+				public void changed(ChangeEvent event, Actor actor) {
+					Gdx.app.exit();
+				}
+			});
 		}
-	}
-
-	private void setupOtherMenu() {
+		
 		TextButton backButton = new TextButton("Back", buttonStyle);
-		backButton.setPosition(190, 10);
+		backButton.setPosition(Gdx.graphics.getWidth() / 2 - backButton.getWidth() / 2, 10);
 		otherStage.addActor(backButton);
-
 		backButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 0;
@@ -127,14 +122,14 @@ public class MainMenuScreen extends BaseScreen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(currentMenu == 0) {
-			mainStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			mainStage.act(delta);
 			mainStage.draw();
 
 			batch.begin();
 			batch.draw(gnpLogo, 50, 300);
 			batch.end();
 		} else if(currentMenu == 1) {
-			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			otherStage.act(delta);
 			otherStage.draw();
 
 			batch.begin();
@@ -151,7 +146,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "right before it goes into someone else's goal. Have fun!", 20, 170);
 			batch.end();
 		} else if(currentMenu == 2) {
-			otherStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			otherStage.act(delta);
 			otherStage.draw();
 
 			batch.begin();
@@ -173,9 +168,6 @@ public class MainMenuScreen extends BaseScreen {
 
 	@Override
 	public void dispose() {
-		mainStage.dispose();
-		otherStage.dispose();
-		skin.dispose();
 		gnpLogo.dispose();
 		batch.dispose();
 	}

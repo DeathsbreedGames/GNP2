@@ -2,10 +2,7 @@ package org.deathsbreedgames.gnp2.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -37,10 +34,6 @@ public class RenderGame {
 	
 	// For drawing buttons:
 	private Stage buttonStage;
-	private BitmapFont buttonFont;
-	private TextureAtlas buttonAtlas;
-	private Skin buttonSkin;
-	private TextButton soundButton, musicButton;
 	
 	// Fonts used for info drawing
 	private BitmapFont scoreFont;
@@ -59,21 +52,21 @@ public class RenderGame {
 		
 		// Setup buttons
 		buttonStage = new Stage();
-		buttonAtlas = new TextureAtlas("gfx/buttons.pack");
-		buttonSkin = new Skin(buttonAtlas);
+		TextureAtlas buttonAtlas = new TextureAtlas("gfx/buttons.pack");
+		Skin buttonSkin = new Skin(buttonAtlas);
 		
 		Gdx.input.setInputProcessor(buttonStage);
 		
-		buttonFont = new BitmapFont();
+		BitmapFont buttonFont = new BitmapFont();
 		buttonFont.scale(0.1f);
 		
 		TextButtonStyle buttonStyle = new TextButtonStyle();
 		buttonStyle.up = buttonSkin.getDrawable("button_green");
-		buttonStyle.down = buttonSkin.getDrawable("button_green");
+		buttonStyle.down = buttonSkin.getDrawable("button_light_green");
 		buttonStyle.checked = buttonSkin.getDrawable("button_red");
 		buttonStyle.font = buttonFont;
 		
-		soundButton = new TextButton("S", buttonStyle);
+		TextButton soundButton = new TextButton("S", buttonStyle);
 		soundButton.pad(0, 10, 0, 10);
 		soundButton.setPosition(Gdx.graphics.getWidth() - soundButton.getWidth(), Gdx.graphics.getHeight() - soundButton.getHeight());
 		buttonStage.addActor(soundButton);
@@ -84,7 +77,7 @@ public class RenderGame {
 			}
 		});
 		
-		musicButton = new TextButton("M", buttonStyle);
+		TextButton musicButton = new TextButton("M", buttonStyle);
 		musicButton.setPosition(soundButton.getX() - musicButton.getWidth(), Gdx.graphics.getHeight() - musicButton.getHeight());
 		buttonStage.addActor(musicButton);
 		musicButton.addListener(new ChangeListener() {

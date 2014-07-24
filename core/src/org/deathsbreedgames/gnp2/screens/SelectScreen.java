@@ -1,12 +1,9 @@
 package org.deathsbreedgames.gnp2.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,12 +28,11 @@ import org.deathsbreedgames.gnp2.Game;
  */
 public class SelectScreen extends BaseScreen {
 	public Game game;
-	
 	private SpriteBatch batch = new SpriteBatch();
+	
 	public Stage gameModeStage, groupModeStage, classicModeStage;
-	private Skin buttonSkin = new Skin();
-	private BitmapFont buttonFont = new BitmapFont();
-	private TextButtonStyle buttonStyle = new TextButtonStyle();
+	private BitmapFont buttonFont;
+	private TextButtonStyle buttonStyle;
 	
 	private TextButton groupModeButton;
 	private TextButton classicModeButton;
@@ -59,66 +55,60 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage = new Stage();
 		groupModeStage = new Stage();
 		classicModeStage = new Stage();
+		TextureAtlas buttonAtlas = new TextureAtlas("gfx/buttons.pack");
+		Skin buttonSkin = new Skin(buttonAtlas);
 		
 		Gdx.input.setInputProcessor(gameModeStage);
 		
-		Pixmap buttonPixmap = new Pixmap(140, 40, Format.RGBA8888);
-		buttonPixmap.setColor(Color.WHITE);
-		buttonPixmap.fill();
-		buttonSkin.add("main", new Texture(buttonPixmap));
+		buttonFont = new BitmapFont();
+		buttonFont.scale(0.5f);
 		
-		buttonFont.scale(0.4f);
-		buttonSkin.add("default", buttonFont);
+		buttonStyle = new TextButtonStyle();
+		buttonStyle.up = buttonSkin.getDrawable("button_green");
+		buttonStyle.down = buttonSkin.getDrawable("button_green");
+		buttonStyle.over = buttonSkin.getDrawable("button_light_green");
+		buttonStyle.font = buttonFont;
 		
-		buttonStyle.up = buttonSkin.newDrawable("main", Color.BLACK);
-		buttonStyle.down = buttonSkin.newDrawable("main", Color.BLACK);
-		buttonStyle.over = buttonSkin.newDrawable("main", Color.GREEN);
-		buttonStyle.font = buttonSkin.getFont("default");
-		buttonSkin.add("default", buttonStyle);
-		
-		setupModeSelect();
-		
-		backToModeSelect = new TextButton("Back", buttonStyle);
-		backToModeSelect.setPosition(10, 10);
-		//groupModeStage.addActor(backToModeSelect);
-		backToModeSelect.addListener(new ChangeListener() {
-			public void changed(ChangeEvent event, Actor actor) {
-				currentMenu = 0;
-				Gdx.input.setInputProcessor(gameModeStage);
-			}
-		});
+		createButtons();
 	}
 	
-	private void setupModeSelect() {
+	private void createButtons() {
 		backToMainMenu = new TextButton("Back", buttonStyle);
-		backToMainMenu.setPosition(170, 10);
+		backToMainMenu.setPosition(Gdx.graphics.getWidth() / 2 - backToMainMenu.getWidth() / 2, 10);
 		gameModeStage.addActor(backToMainMenu);
-		backToMainMenu.addListener(new ChangeListener() {
-			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new MainMenuScreen(game));
-			}
+		backToMainMenu.addListener(new ChangeListener() { 
+			public void changed(ChangeEvent event, Actor actor) { game.setScreen(new MainMenuScreen(game)); }
 		});
 		
 		groupModeButton = new TextButton("Group Mode", buttonStyle);
-		groupModeButton.setPosition(170, 250);
+		groupModeButton.setPosition(Gdx.graphics.getWidth() / 2 - groupModeButton.getWidth() / 2, 250);
 		gameModeStage.addActor(groupModeButton);
 		groupModeButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				/*currentMenu = 1;
-				groupModeStage.addActor(backToModeSelect);
-				Gdx.input.setInputProcessor(groupModeStage);*/
+				//currentMenu = 1;
+				//groupModeStage.addActor(backToModeSelect);
+				//Gdx.input.setInputProcessor(groupModeStage);
 				game.setScreen(new GameScreen(game));
 			}
 		});
 		
 		classicModeButton = new TextButton("Classic Mode", buttonStyle);
-		classicModeButton.setPosition(170, 210);
+		classicModeButton.setPosition(Gdx.graphics.getWidth() / 2 - classicModeButton.getWidth() / 2, groupModeButton.getY() - classicModeButton.getHeight());
 		gameModeStage.addActor(classicModeButton);
 		classicModeButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 2;
 				classicModeStage.addActor(backToModeSelect);
 				Gdx.input.setInputProcessor(classicModeStage);
+			}
+		});
+		
+		backToModeSelect = new TextButton("Back", buttonStyle);
+		backToModeSelect.setPosition(10, 10);
+		backToModeSelect.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 0;
+				Gdx.input.setInputProcessor(gameModeStage);
 			}
 		});
 	}
@@ -128,13 +118,13 @@ public class SelectScreen extends BaseScreen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(currentMenu == 0) {
-			gameModeStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			gameModeStage.act(delta);
 			gameModeStage.draw();
 		} else if(currentMenu == 1) {
-			groupModeStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			groupModeStage.act(delta);
 			groupModeStage.draw();
 		} else if(currentMenu == 2) {
-			classicModeStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30.0f));
+			classicModeStage.act(delta);
 			classicModeStage.draw();
 		}
 	}
@@ -145,7 +135,6 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage.dispose();
 		groupModeStage.dispose();
 		classicModeStage.dispose();
-		buttonSkin.dispose();
 		buttonFont.dispose();
 	}
 }
