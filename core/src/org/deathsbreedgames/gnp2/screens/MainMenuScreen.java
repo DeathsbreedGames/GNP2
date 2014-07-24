@@ -36,10 +36,11 @@ public class MainMenuScreen extends BaseScreen {
 	private BitmapFont buttonFont;
 	private TextButtonStyle buttonStyle;
 	
-	public static int currentMenu = 0;
+	public static int currentMenu;
 
 	public MainMenuScreen(Game game) {
 		this.game = game;
+		currentMenu = 0;
 		
 		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
 		textFont = new BitmapFont();

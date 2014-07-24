@@ -44,15 +44,17 @@ public class GameScreen extends BaseScreen {
 	public int[] scores = new int[4];
 
 	// Constructor
-	public GameScreen(Game game) {
+	public GameScreen(Game game, boolean[] aiPlayers) {
 		this.game = game;
 		renderer = new RenderGame(this);
 
 		ball = new Ball(225, 225);
-		players[0] = new Paddle(10.0f, 175.0f, true, false, ball);
-		players[1] = new Paddle(440.0f, 175.0f, true, false, ball);
-		players[2] = new Paddle(175.0f, 440.0f, false, false, ball);
-		players[3] = new Paddle(175.0f, 10.0f, false, false, ball);
+		players[0] = new Paddle(10.0f, 175.0f, true, ball);
+		players[1] = new Paddle(440.0f, 175.0f, true, ball);
+		players[2] = new Paddle(175.0f, 440.0f, false, ball);
+		players[3] = new Paddle(175.0f, 10.0f, false, ball);
+		
+		for(int i = 0; i < players.length; i++) { players[i].setAI(aiPlayers[i]); }
 
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
@@ -163,7 +165,7 @@ public class GameScreen extends BaseScreen {
 
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			if(music.isPlaying()) { music.stop(); }
-			game.setScreen(new SelectScreen(game));
+			game.setScreen(new MainMenuScreen(game));
 		}
 	}
 	

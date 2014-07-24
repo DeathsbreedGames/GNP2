@@ -28,16 +28,18 @@ import org.deathsbreedgames.gnp2.Game;
  */
 public class SelectScreen extends BaseScreen {
 	public Game game;
-	private SpriteBatch batch = new SpriteBatch();
+	//private SpriteBatch batch = new SpriteBatch();
 	
 	public Stage gameModeStage, groupModeStage, classicModeStage;
 	private BitmapFont buttonFont;
 	private TextButtonStyle buttonStyle;
+	private TextButtonStyle aiChooseStyle;
 	
 	private TextButton groupModeButton;
 	private TextButton classicModeButton;
 	private TextButton[] aiPlayersGroup = new TextButton[4];
 	private TextButton[] aiPlayersClassic = new TextButton[2];
+	private TextButton playGroupMode;
 	public TextButton backToModeSelect;
 	private TextButton backToMainMenu;
 	
@@ -69,6 +71,12 @@ public class SelectScreen extends BaseScreen {
 		buttonStyle.over = buttonSkin.getDrawable("button_light_green");
 		buttonStyle.font = buttonFont;
 		
+		aiChooseStyle = new TextButtonStyle();
+		aiChooseStyle.up = buttonSkin.getDrawable("button_blue");
+		aiChooseStyle.down = buttonSkin.getDrawable("button_blue");
+		aiChooseStyle.checked = buttonSkin.getDrawable("button_red");
+		aiChooseStyle.font = buttonFont;
+		
 		createButtons();
 	}
 	
@@ -85,10 +93,9 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage.addActor(groupModeButton);
 		groupModeButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				//currentMenu = 1;
-				//groupModeStage.addActor(backToModeSelect);
-				//Gdx.input.setInputProcessor(groupModeStage);
-				game.setScreen(new GameScreen(game));
+				currentMenu = 1;
+				groupModeStage.addActor(backToModeSelect);
+				Gdx.input.setInputProcessor(groupModeStage);
 			}
 		});
 		
@@ -102,6 +109,72 @@ public class SelectScreen extends BaseScreen {
 				Gdx.input.setInputProcessor(classicModeStage);
 			}
 		});
+		
+		for(int i = 0; i < aiPlayersGroup.length; i++) {
+			aiPlayersGroup[i] = new TextButton("Player", aiChooseStyle);
+			groupModeStage.addActor(aiPlayersGroup[i]);
+		}
+		aiPlayersGroup[0].setPosition(40, Gdx.graphics.getHeight() / 2 - aiPlayersGroup[0].getHeight() / 2);
+		aiPlayersGroup[1].setPosition(Gdx.graphics.getWidth() - (aiPlayersGroup[1].getWidth() + 40), aiPlayersGroup[0].getY());
+		aiPlayersGroup[2].setPosition(Gdx.graphics.getWidth() / 2 - aiPlayersGroup[2].getWidth() / 2, Gdx.graphics.getHeight() - (aiPlayersGroup[2].getHeight() + 40));
+		aiPlayersGroup[3].setPosition(aiPlayersGroup[2].getX(), 40);
+		
+		aiPlayersGroup[0].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(groupAIPlayers[0] == false) {
+					groupAIPlayers[0] = true;
+					aiPlayersGroup[0].setText("AI");
+				} else {
+					groupAIPlayers[0] = false;
+					aiPlayersGroup[0].setText("Player");
+				}
+			}
+		});
+		aiPlayersGroup[1].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(groupAIPlayers[1] == false) {
+					groupAIPlayers[1] = true;
+					aiPlayersGroup[1].setText("AI");
+				} else {
+					groupAIPlayers[1] = false;
+					aiPlayersGroup[1].setText("Player");
+				}
+			}
+		});
+		aiPlayersGroup[2].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(groupAIPlayers[2] == false) {
+					groupAIPlayers[2] = true;
+					aiPlayersGroup[2].setText("AI");
+				} else {
+					groupAIPlayers[2] = false;
+					aiPlayersGroup[2].setText("Player");
+				}
+			}
+		});
+		aiPlayersGroup[3].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(groupAIPlayers[3] == false) {
+					groupAIPlayers[3] = true;
+					aiPlayersGroup[3].setText("AI");
+				} else {
+					groupAIPlayers[3] = false;
+					aiPlayersGroup[3].setText("Player");
+				}
+			}
+		});
+		
+		playGroupMode = new TextButton("Play", buttonStyle);
+		playGroupMode.setPosition(Gdx.graphics.getWidth() - (playGroupMode.getWidth() + 10), 10);
+		groupModeStage.addActor(playGroupMode);
+		playGroupMode.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 0;
+				Gdx.input.setInputProcessor(gameModeStage);
+				game.setScreen(new GameScreen(game, groupAIPlayers));
+			}
+		});
+		
 		
 		backToModeSelect = new TextButton("Back", buttonStyle);
 		backToModeSelect.setPosition(10, 10);

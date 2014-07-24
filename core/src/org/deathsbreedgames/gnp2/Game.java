@@ -1,5 +1,7 @@
 package org.deathsbreedgames.gnp2;
 
+import com.badlogic.gdx.Screen;
+
 import org.deathsbreedgames.gnp2.screens.*;
 
 /**

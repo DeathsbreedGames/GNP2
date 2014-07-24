@@ -22,7 +22,7 @@ public class Paddle extends Entity {
 	Rectangle bounds;
 
 	// Constructor
-	public Paddle(float x, float y, boolean vertical, boolean ai, Ball ball) {
+	public Paddle(float x, float y, boolean vertical, Ball ball) {
 		super(x, y);
 		this.vertical = vertical;
 		this.ai = ai;
@@ -70,6 +70,7 @@ public class Paddle extends Entity {
 	public Rectangle getBounds() { return bounds; }
 
 	public void setBounds(Rectangle b) { bounds = b; }
+	public void setAI(boolean ai) { this.ai = ai; }
 	public void setBoundsPosition(float x, float y) { bounds.setPosition(x, y); }
 	public void movePos() {
 		if(vertical) { setVelY(MAXVEL); }
