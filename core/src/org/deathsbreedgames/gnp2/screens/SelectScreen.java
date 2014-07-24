@@ -28,7 +28,6 @@ import org.deathsbreedgames.gnp2.Game;
  */
 public class SelectScreen extends BaseScreen {
 	public Game game;
-	//private SpriteBatch batch = new SpriteBatch();
 	
 	public Stage gameModeStage, groupModeStage, classicModeStage;
 	private BitmapFont buttonFont;
@@ -204,7 +203,6 @@ public class SelectScreen extends BaseScreen {
 	
 	@Override
 	public void dispose() {
-		batch.dispose();
 		gameModeStage.dispose();
 		groupModeStage.dispose();
 		classicModeStage.dispose();
