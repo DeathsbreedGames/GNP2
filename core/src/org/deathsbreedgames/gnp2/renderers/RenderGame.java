@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -41,11 +42,11 @@ public class RenderGame {
 
 	// Image variables
 	private Texture bg;
-	private Texture pBlue;
-	private Texture pRed;
-	private Texture pGreen;
-	private Texture pPurple;
-	private Texture ball;
+	private Sprite pBlue = new Sprite();
+	private Sprite pRed = new Sprite();
+	private Sprite pGreen = new Sprite();
+	private Sprite pPurple = new Sprite();
+	private Sprite ball = new Sprite();
 
 	public RenderGame(GameScreen screen) {
 		this.screen = screen;
@@ -97,11 +98,12 @@ public class RenderGame {
 		// Setup graphics
 		batch = new SpriteBatch();
 		bg = new Texture(Gdx.files.internal("gfx/bg.jpg"));
-		pBlue = new Texture(Gdx.files.internal("gfx/Paddle_blue.png"));
-		pRed = new Texture(Gdx.files.internal("gfx/Paddle_red.png"));
-		pGreen = new Texture(Gdx.files.internal("gfx/Paddle_green.png"));
-		pPurple = new Texture(Gdx.files.internal("gfx/Paddle_purple.png"));
-		ball = new Texture(Gdx.files.internal("gfx/Ball_orange.png"));
+		TextureAtlas spriteAtlas = new TextureAtlas("gfx/sprites.pack");
+		pBlue = spriteAtlas.createSprite("Paddle_blue");
+		pRed = spriteAtlas.createSprite("Paddle_red");
+		pGreen = spriteAtlas.createSprite("Paddle_green");
+		pPurple = spriteAtlas.createSprite("Paddle_purple");
+		ball = spriteAtlas.createSprite("Ball_orange");
 	}
 
 	public void render(float delta) {
@@ -158,11 +160,6 @@ public class RenderGame {
 
 	public void dispose() {
 		bg.dispose();
-		pBlue.dispose();
-		pRed.dispose();
-		pGreen.dispose();
-		pPurple.dispose();
-		ball.dispose();
 		batch.dispose();
 	}
 }

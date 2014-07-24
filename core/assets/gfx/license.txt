@@ -2,10 +2,7 @@ The following files in this directory belong to DeathsbreedGames, and are
 licensed with a CC-BY-SA license:
 
 buttons.png
-Ball_orange.png
 bg.jpg
-Paddle_blue.png
-Paddle_green.png
-Paddle_purple.png
-Paddle_red.png
+sprites.png
 GNP2.png
+GNP2Icon.png
