@@ -1,6 +1,5 @@
 package org.deathsbreedgames.gnp2.screens;
 
-//import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Intersector;
@@ -21,7 +20,7 @@ import org.deathsbreedgames.gnp2.Game;
  * the menu or anything else, just the game).
  * 
  */
-public class GameScreen extends BaseScreen {
+public class GroupModeScreen extends BaseScreen {
 	private Game game;
 	
 	// The renderer class
@@ -44,7 +43,7 @@ public class GameScreen extends BaseScreen {
 	public int[] scores = new int[4];
 
 	// Constructor
-	public GameScreen(Game game, boolean[] aiPlayers) {
+	public GroupModeScreen(Game game, boolean[] aiPlayers) {
 		this.game = game;
 		renderer = new RenderGame(this);
 

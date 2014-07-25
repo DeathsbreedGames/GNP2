@@ -170,7 +170,7 @@ public class SelectScreen extends BaseScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
-				game.setScreen(new GameScreen(game, groupAIPlayers));
+				game.setScreen(new GroupModeScreen(game, groupAIPlayers));
 			}
 		});
 		

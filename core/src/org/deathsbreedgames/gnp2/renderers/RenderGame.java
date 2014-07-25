@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import org.deathsbreedgames.gnp2.screens.GameScreen;
+import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
 
 /**
  * @author Nicolás A. Ortega
@@ -29,7 +29,7 @@ import org.deathsbreedgames.gnp2.screens.GameScreen;
  */
 public class RenderGame {
 	// The screen that we get in the constructor
-	private GameScreen screen;
+	private GroupModeScreen screen;
 	// The drawing SpriteBatch
 	private SpriteBatch batch;
 	
@@ -48,7 +48,7 @@ public class RenderGame {
 	private Sprite pPurple = new Sprite();
 	private Sprite ball = new Sprite();
 
-	public RenderGame(GameScreen screen) {
+	public RenderGame(GroupModeScreen screen) {
 		this.screen = screen;
 		
 		// Setup buttons
