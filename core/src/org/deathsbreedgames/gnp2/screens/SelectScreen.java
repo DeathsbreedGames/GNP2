@@ -39,6 +39,7 @@ public class SelectScreen extends BaseScreen {
 	private TextButton[] aiPlayersGroup = new TextButton[4];
 	private TextButton[] aiPlayersClassic = new TextButton[2];
 	private TextButton playGroupMode;
+	private TextButton playClassicMode;
 	public TextButton backToModeSelect;
 	private TextButton backToMainMenu;
 	
@@ -120,7 +121,7 @@ public class SelectScreen extends BaseScreen {
 		
 		aiPlayersGroup[0].addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				if(groupAIPlayers[0] == false) {
+				if(!groupAIPlayers[0]) {
 					groupAIPlayers[0] = true;
 					aiPlayersGroup[0].setText("AI");
 				} else {
@@ -131,7 +132,7 @@ public class SelectScreen extends BaseScreen {
 		});
 		aiPlayersGroup[1].addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				if(groupAIPlayers[1] == false) {
+				if(!groupAIPlayers[1]) {
 					groupAIPlayers[1] = true;
 					aiPlayersGroup[1].setText("AI");
 				} else {
@@ -142,7 +143,7 @@ public class SelectScreen extends BaseScreen {
 		});
 		aiPlayersGroup[2].addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				if(groupAIPlayers[2] == false) {
+				if(!groupAIPlayers[2]) {
 					groupAIPlayers[2] = true;
 					aiPlayersGroup[2].setText("AI");
 				} else {
@@ -153,7 +154,7 @@ public class SelectScreen extends BaseScreen {
 		});
 		aiPlayersGroup[3].addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				if(groupAIPlayers[3] == false) {
+				if(!groupAIPlayers[3]) {
 					groupAIPlayers[3] = true;
 					aiPlayersGroup[3].setText("AI");
 				} else {
@@ -171,6 +172,49 @@ public class SelectScreen extends BaseScreen {
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
 				game.setScreen(new GroupModeScreen(game, groupAIPlayers));
+			}
+		});
+		
+		
+		for(int i = 0; i < aiPlayersClassic.length; i++) {
+			aiPlayersClassic[i] = new TextButton("Player", aiChooseStyle);
+			classicModeStage.addActor(aiPlayersClassic[i]);
+		}
+		aiPlayersClassic[0].setPosition(40, Gdx.graphics.getHeight() / 2 - aiPlayersClassic[0].getHeight() / 2);
+		aiPlayersClassic[1].setPosition(Gdx.graphics.getWidth() - (aiPlayersClassic[1].getWidth() + 40), aiPlayersClassic[0].getY());
+		
+		aiPlayersClassic[0].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(!classicAIPlayers[0]) {
+					classicAIPlayers[0] = true;
+					aiPlayersClassic[0].setText("AI");
+				} else {
+					classicAIPlayers[0] = false;
+					aiPlayersClassic[0].setText("Player");
+				}
+			}
+		});
+		
+		aiPlayersClassic[1].addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				if(!classicAIPlayers[1]) {
+					classicAIPlayers[1] = true;
+					aiPlayersClassic[1].setText("AI");
+				} else {
+					classicAIPlayers[1] = false;
+					aiPlayersClassic[1].setText("Player");
+				}
+			}
+		});
+		
+		playClassicMode = new TextButton("Play", buttonStyle);
+		playClassicMode.setPosition(Gdx.graphics.getWidth() - (playClassicMode.getWidth() + 10), 10);
+		classicModeStage.addActor(playClassicMode);
+		playClassicMode.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				currentMenu = 0;
+				Gdx.input.setInputProcessor(gameModeStage);
+				game.setScreen(new ClassicModeScreen(game, classicAIPlayers));
 			}
 		});
 		

@@ -21,6 +21,8 @@ public class Ball extends Entity {
 	public boolean start = false;
 	private Rectangle bounds;
 	private final float MAXVEL = 8.0f;
+	
+	private float moveAngle;
 
 	public Ball(float x, float y) {
 		super(x, y);
@@ -31,7 +33,7 @@ public class Ball extends Entity {
 		super.update(delta);
 		setBoundsPosition(getX() + 15, getY() + 12);
 		if(timer == 0) {
-			float moveAngle = MathUtils.random(360.0f);
+			moveAngle = MathUtils.random(360.0f);
 			setVelX(MathUtils.cosDeg(moveAngle) * MAXVEL);
 			setVelY(MathUtils.sinDeg(moveAngle) * MAXVEL);
 			start = true;
@@ -50,11 +52,13 @@ public class Ball extends Entity {
 
 	public Rectangle getBounds() { return bounds; }
 	public float getMaxVel() { return MAXVEL; }
+	public float getMoveAngle() { return moveAngle; }
 
 	public void setBounds(Rectangle c) { bounds = c; }
 	public void setBoundsPosition(float x, float y) { bounds.setPosition(x, y); }
 	public void setMoveAngle(float nA) {
 		setVelX(MathUtils.cosDeg(nA) * MAXVEL);
 		setVelY(MathUtils.sinDeg(nA) * MAXVEL);
+		moveAngle = nA;
 	}
 }

@@ -17,6 +17,6 @@ public class ClassicModeRenderer {
 	private ClassicModeScreen screen;
 	
 	public ClassicModeRenderer(ClassicModeScreen screen) {
-		
+		this.screen = screen;
 	}
 }
