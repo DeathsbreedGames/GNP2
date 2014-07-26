@@ -29,9 +29,9 @@ public class ClassicModeScreen extends BaseScreen {
 	private boolean oldPausePressed = false;
 	
 	// The array of paddles:
-	private Paddle[] players = new Paddle[2];
+	public Paddle[] players = new Paddle[2];
 	// Creating the ball object.
-	private Ball ball;
+	public Ball ball;
 	
 	// Audio:
 	private Sound hit;
@@ -85,22 +85,20 @@ public class ClassicModeScreen extends BaseScreen {
 			float newAngle = -((((players[0].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) - 90);
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[0].getX() + 20);
-			ballLastTouch = 0;
 			if(game.soundOn) hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[1].getBounds())) {
 			float newAngle = (((players[1].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) + 90;
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[1].getX() - 26);
-			ballLastTouch = 1;
 			if(game.soundOn) hit.play(0.6f);
 		}
 		
 		if(ball.getX() <= -50) {
-			score[1]++;
+			scores[1]++;
 			ball.reset(225, 225);
 			if(game.soundOn) score.play();
 		} else if(ball.getX() >= 500) {
-			score[0]++;
+			scores[0]++;
 			ball.reset(225, 225);
 			if(game.soundOn) score.play();
 		} else if(ball.getY() <= 0 || ball.getY() >= 450) {
