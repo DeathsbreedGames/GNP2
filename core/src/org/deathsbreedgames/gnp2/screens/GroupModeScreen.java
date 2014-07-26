@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
-import org.deathsbreedgames.gnp2.renderers.RenderGame;
+import org.deathsbreedgames.gnp2.renderers.GroupModeRenderer;
 import org.deathsbreedgames.gnp2.entities.*;
 import org.deathsbreedgames.gnp2.Game;
 
@@ -24,7 +24,7 @@ public class GroupModeScreen extends BaseScreen {
 	private Game game;
 	
 	// The renderer class
-	private RenderGame renderer;
+	private GroupModeRenderer renderer;
 	private boolean paused = false;
 	private boolean oldPausePressed = false;
 
@@ -45,7 +45,7 @@ public class GroupModeScreen extends BaseScreen {
 	// Constructor
 	public GroupModeScreen(Game game, boolean[] aiPlayers) {
 		this.game = game;
-		renderer = new RenderGame(this);
+		renderer = new GroupModeRenderer(this);
 
 		ball = new Ball(225, 225);
 		players[0] = new Paddle(10.0f, 175.0f, true, ball);

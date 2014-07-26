@@ -27,7 +27,7 @@ import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
  * clean, and therefore easier to read.
  * 
  */
-public class RenderGame {
+public class GroupModeRenderer {
 	// The screen that we get in the constructor
 	private GroupModeScreen screen;
 	// The drawing SpriteBatch
@@ -48,7 +48,7 @@ public class RenderGame {
 	private Sprite pPurple = new Sprite();
 	private Sprite ball = new Sprite();
 
-	public RenderGame(GroupModeScreen screen) {
+	public GroupModeRenderer(GroupModeScreen screen) {
 		this.screen = screen;
 		
 		// Setup buttons
