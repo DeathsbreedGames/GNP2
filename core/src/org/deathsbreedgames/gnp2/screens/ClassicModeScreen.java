@@ -71,8 +71,8 @@ public class ClassicModeScreen extends BaseScreen {
 			if(Gdx.input.isKeyPressed(Input.Keys.S)) { players[0].moveNeg(); }
 		}
 		if(!players[1].getAI()) {
-			if(Gdx.input.isKeyPressed(Input.Keys.UP)) { players[1].movePos(); }
-			if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) { players[1].moveNeg(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.APOSTROPHE)) { players[1].movePos(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.SLASH)) { players[1].moveNeg(); }
 		}
 		
 		if(!paused) {
