@@ -154,14 +154,13 @@ public class MainMenuScreen extends BaseScreen {
 			buttonFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
 			buttonFont.draw(batch, "Credits", 215, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			textFont.draw(batch, "This program is Free Software and is licenced with the GNU", 20, 400);
-			textFont.draw(batch, "GPLv3 license. The all art in this game is license under a", 20, 370);
-			textFont.draw(batch, "CC-BY-SA  license. Follows the link to the source-code:", 20, 340);
-			textFont.draw(batch, "https://github.com/DeathsbreedGames/GNP2", 60, 310);
-			textFont.draw(batch, "For more projects by Deathsbreed visit of the following:", 20, 260);
-			textFont.draw(batch, "https://github.com/DeathsbreedGames", 60, 230);
-			textFont.draw(batch, "https://github.com/Deathsbreed", 60, 200);
-			textFont.draw(batch, "http://themusicinnoise.net", 60, 170);
+			textFont.draw(batch, "Work - Author - License", 20, 400);
+			textFont.draw(batch, "Graphics - Nicolás A. Ortega - CC-BY-SA", 20, 370);
+			textFont.draw(batch, "Music/Sfx - Nicolás A. Ortega - CC-BY-SA", 20, 340);
+			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU GPLv3", 20, 310);
+			textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
+			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
+			textFont.draw(batch, "https://github.com/DeathsbreedGames", 40, 190);
 			textFont.draw(batch, "v1.0", 455, 25);
 			batch.end();
 		}
