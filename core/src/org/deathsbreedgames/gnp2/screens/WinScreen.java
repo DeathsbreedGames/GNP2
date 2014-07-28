@@ -23,21 +23,51 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class WinScreen extends BaseScreen {
-	private Game game;
+	public Game game;
 	
 	private int playerNumber;
 	
 	private SpriteBatch batch;
 	private BitmapFont winnerFont;
 	
+	private Stage buttonStage;
+	
+	
 	public WinScreen(Game game, int playerNumber) {
 		this.game = game;
-		this.playerNumber = playerNumber;
+		this.playerNumber = playerNumber + 1;
 		
 		batch = new SpriteBatch();
 		
 		winnerFont = new BitmapFont();
 		winnerFont.scale(1.5f);
+		
+		setupButtons();
+	}
+	
+	private void setupButtons() {
+		buttonStage = new Stage();
+		TextureAtlas buttonAtlas = new TextureAtlas("gfx/buttons.pack");
+		Skin buttonSkin = new Skin(buttonAtlas);
+		
+		Gdx.input.setInputProcessor(buttonStage);
+		
+		BitmapFont buttonFont = new BitmapFont();
+		
+		TextButtonStyle buttonStyle = new TextButtonStyle();
+		buttonStyle.up = buttonSkin.getDrawable("button_green");
+		buttonStyle.down = buttonSkin.getDrawable("button_green");
+		buttonStyle.over = buttonSkin.getDrawable("button_light_green");
+		buttonStyle.font = buttonFont;
+		
+		TextButton backToMainMenu = new TextButton("Main Menu", buttonStyle);
+		backToMainMenu.setPosition(Gdx.graphics.getWidth() / 2 - backToMainMenu.getWidth() / 2, 50);
+		buttonStage.addActor(backToMainMenu);
+		backToMainMenu.addListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(new MainMenuScreen(game));
+			}
+		});
 	}
 	
 	@Override
@@ -48,5 +78,8 @@ public class WinScreen extends BaseScreen {
 		batch.begin();
 		winnerFont.draw(batch, "PLAYER " + playerNumber + " WINS!", 100, 300); 
 		batch.end();
+		
+		buttonStage.act(delta);
+		buttonStage.draw();
 	}
 }
