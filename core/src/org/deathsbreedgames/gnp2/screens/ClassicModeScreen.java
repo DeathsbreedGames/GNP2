@@ -40,6 +40,7 @@ public class ClassicModeScreen extends BaseScreen {
 	
 	// Scoring system:
 	public int[] scores = new int[2];
+	private int scoreUpTo = 10;
 	
 	
 	public ClassicModeScreen(Game game, boolean[] aiPlayers) {
@@ -103,6 +104,12 @@ public class ClassicModeScreen extends BaseScreen {
 			if(game.soundOn) score.play();
 		} else if(ball.getY() <= 0 || ball.getY() >= 450) {
 			ball.setMoveAngle(360 - ball.getMoveAngle());
+		}
+		
+		for(int i = 0; i < scores.length; i++) {
+			if(scores[i] == scoreUpTo) {
+				game.setScreen(new WinScreen(game, i));
+			}
 		}
 		
 		if(!paused) {

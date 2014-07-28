@@ -41,6 +41,7 @@ public class GroupModeScreen extends BaseScreen {
 	// Scoring system
 	private int ballLastTouch = -1;
 	public int[] scores = new int[4];
+	private int scoreUpTo = 10;
 
 	// Constructor
 	public GroupModeScreen(Game game, boolean[] aiPlayers) {
@@ -144,6 +145,12 @@ public class GroupModeScreen extends BaseScreen {
 			ballLastTouch = -1;
 			ball.reset(225, 225);
 			if(game.soundOn) score.play();
+		}
+		
+		for(int i = 0; i < scores.length; i++) {
+			if(scores[i] == scoreUpTo) {
+				game.setScreen(new WinScreen(game, i));
+			}
 		}
 
 		if(!paused) {
