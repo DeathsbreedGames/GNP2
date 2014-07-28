@@ -168,7 +168,11 @@ public class MainMenuScreen extends BaseScreen {
 
 	@Override
 	public void dispose() {
-		gnpLogo.dispose();
 		batch.dispose();
+		gnpLogo.dispose();
+		textFont.dispose();
+		mainStage.dispose();
+		otherStage.dispose();
+		buttonFont.dispose();
 	}
 }

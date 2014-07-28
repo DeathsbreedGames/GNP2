@@ -82,4 +82,11 @@ public class WinScreen extends BaseScreen {
 		buttonStage.act(delta);
 		buttonStage.draw();
 	}
+	
+	@Override
+	public void dispose() {
+		batch.dispose();
+		winnerFont.dispose();
+		buttonStage.dispose();
+	}
 }

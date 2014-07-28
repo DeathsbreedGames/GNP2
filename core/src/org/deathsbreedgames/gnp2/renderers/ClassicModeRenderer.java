@@ -141,4 +141,13 @@ public class ClassicModeRenderer {
 	private void setSoundOff() { screen.setSoundOff(); }
 	private void setMusicOn() { screen.setMusicOn(); }
 	private void setMusicOff() { screen.setMusicOff(); }
+	
+	@Override
+	public void dispose() {
+		batch.dispose()
+		buttonStage.dispose();
+		scoreFont.dispose();
+		pausedFont.dispose();
+		bg.dispose();
+	}
 }

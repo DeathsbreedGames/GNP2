@@ -158,8 +158,12 @@ public class GroupModeRenderer {
 	private void setMusicOn() { screen.setMusicOn(); }
 	private void setMusicOff() { screen.setMusicOff(); }
 
+	@Override
 	public void dispose() {
-		bg.dispose();
 		batch.dispose();
+		buttonStage.dispose();
+		scoreFont.dispose();
+		pausedFont.dispose();
+		bg.dispose();
 	}
 }

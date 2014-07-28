@@ -54,4 +54,11 @@ public class SplashScreen extends BaseScreen {
 		if(a == 100) { fadeUp = false; }
 		if(a == 0) { game.setScreen(new MainMenuScreen(game)); }
 	}
+	
+	@Override
+	public void dispose() {
+		batch.dispose();
+		splashTexture.dispose();
+		font.dispose();
+	}
 }

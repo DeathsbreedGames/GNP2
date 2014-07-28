@@ -191,9 +191,9 @@ public class GroupModeScreen extends BaseScreen {
 
 	@Override
 	public void dispose() {
+		renderer.dispose();
 		hit.dispose();
 		score.dispose();
 		music.dispose();
-		renderer.dispose();
 	}
 }

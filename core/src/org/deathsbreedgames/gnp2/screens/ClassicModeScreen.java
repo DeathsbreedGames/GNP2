@@ -147,4 +147,12 @@ public class ClassicModeScreen extends BaseScreen {
 		game.musicOn = true;
 		this.music.play();
 	}
+	
+	@Override
+	public void dispose() {
+		renderer.dispose();
+		hit.dispose();
+		score.dispose();
+		music.dispose();
+	}
 }
