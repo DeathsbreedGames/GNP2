@@ -13,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import org.deathsbreedgames.gnp2.Game;
-
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
@@ -25,8 +23,6 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class WinScreen extends BaseScreen {
-	public Game game;
-	
 	private int playerNumber;
 	
 	private SpriteBatch batch;
@@ -35,8 +31,7 @@ public class WinScreen extends BaseScreen {
 	private Stage buttonStage;
 	
 	
-	public WinScreen(Game game, int playerNumber) {
-		this.game = game;
+	public WinScreen(int playerNumber) {
 		this.playerNumber = playerNumber + 1;
 		
 		batch = new SpriteBatch();
@@ -67,7 +62,7 @@ public class WinScreen extends BaseScreen {
 		buttonStage.addActor(backToMainMenu);
 		backToMainMenu.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new MainMenuScreen(game));
+				setDone(true);
 			}
 		});
 	}

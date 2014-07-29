@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
-import org.deathsbreedgames.gnp2.*;
+import org.deathsbreedgames.gnp2.GlobalVars;
 import org.deathsbreedgames.gnp2.entities.*;
 import org.deathsbreedgames.gnp2.renderers.GroupModeRenderer;
 
@@ -21,8 +21,6 @@ import org.deathsbreedgames.gnp2.renderers.GroupModeRenderer;
  * 
  */
 public class GroupModeScreen extends BaseScreen {
-	private Game game;
-	
 	// The renderer class
 	private GroupModeRenderer renderer;
 	private boolean paused = false;
@@ -44,8 +42,7 @@ public class GroupModeScreen extends BaseScreen {
 	private int scoreUpTo = 10;
 
 	// Constructor
-	public GroupModeScreen(Game game, boolean[] aiPlayers) {
-		this.game = game;
+	public GroupModeScreen(boolean[] aiPlayers) {
 		renderer = new GroupModeRenderer(this);
 
 		ball = new Ball(225, 225);
@@ -150,7 +147,8 @@ public class GroupModeScreen extends BaseScreen {
 		
 		for(int i = 0; i < scores.length; i++) {
 			if(scores[i] == scoreUpTo) {
-				game.setScreen(new WinScreen(game, i));
+				GlobalVars.winner = i;
+				setDone(true);
 			}
 		}
 
@@ -172,7 +170,8 @@ public class GroupModeScreen extends BaseScreen {
 
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			if(music.isPlaying()) { music.stop(); }
-			game.setScreen(new MainMenuScreen(game));
+			GlobalVars.winner = -1;
+			setDone(true);
 		}
 	}
 

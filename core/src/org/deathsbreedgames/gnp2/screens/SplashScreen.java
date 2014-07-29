@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import org.deathsbreedgames.gnp2.Game;
-
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
@@ -19,7 +17,6 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class SplashScreen extends BaseScreen {
-	private Game game;
 	private SpriteBatch batch;
 	private Texture splashTexture;
 	private BitmapFont font;
@@ -27,8 +24,7 @@ public class SplashScreen extends BaseScreen {
 	private int a;
 	private boolean fadeUp = true;
 	
-	public SplashScreen(Game game) {
-		this.game = game;
+	public SplashScreen() {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		splashTexture = new Texture("gfx/DeathsbreedGames_Production.png");
@@ -52,7 +48,7 @@ public class SplashScreen extends BaseScreen {
 		else { a--; }
 		
 		if(a == 100) { fadeUp = false; }
-		if(a == 0) { game.setScreen(new MainMenuScreen(game)); }
+		if(a == 0) { setDone(true); }
 	}
 	
 	@Override

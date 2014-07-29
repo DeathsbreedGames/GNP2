@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import org.deathsbreedgames.gnp2.Game;
+import org.deathsbreedgames.gnp2.GlobalVars;
 
 /**
  * @author Nicolás A. Ortega
@@ -27,8 +27,6 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class SelectScreen extends BaseScreen {
-	public Game game;
-	
 	public Stage gameModeStage, groupModeStage, classicModeStage;
 	private BitmapFont buttonFont;
 	private TextButtonStyle buttonStyle;
@@ -45,12 +43,10 @@ public class SelectScreen extends BaseScreen {
 	
 	public static int currentMenu = 0;
 	
-	private boolean[] groupAIPlayers = new boolean[4];
-	private boolean[] classicAIPlayers = new boolean[2];
+	public boolean[] groupAIPlayers = new boolean[4];
+	public boolean[] classicAIPlayers = new boolean[2];
 	
-	public SelectScreen(Game game) {
-		this.game = game;
-		
+	public SelectScreen() {
 		for(int i = 0; i < groupAIPlayers.length; i++) { groupAIPlayers[i] = false; }
 		for(int i = 0; i < classicAIPlayers.length; i++) { classicAIPlayers[i] = false; }
 		
@@ -85,7 +81,10 @@ public class SelectScreen extends BaseScreen {
 		backToMainMenu.setPosition(Gdx.graphics.getWidth() / 2 - backToMainMenu.getWidth() / 2, 10);
 		gameModeStage.addActor(backToMainMenu);
 		backToMainMenu.addListener(new ChangeListener() { 
-			public void changed(ChangeEvent event, Actor actor) { game.setScreen(new MainMenuScreen(game)); }
+			public void changed(ChangeEvent event, Actor actor) {
+				GlobalVars.currentGameMode = -1;
+				setDone(true);
+			}
 		});
 		
 		groupModeButton = new TextButton("Group Mode", buttonStyle);
@@ -171,7 +170,9 @@ public class SelectScreen extends BaseScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
-				game.setScreen(new GroupModeScreen(game, groupAIPlayers));
+				GlobalVars.currentGameMode = 0;
+				GlobalVars.ai = groupAIPlayers;
+				setDone(true);
 			}
 		});
 		
@@ -214,7 +215,9 @@ public class SelectScreen extends BaseScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
-				game.setScreen(new ClassicModeScreen(game, classicAIPlayers));
+				GlobalVars.currentGameMode = 1;
+				GlobalVars.ai = classicAIPlayers;
+				setDone(true);
 			}
 		});
 		

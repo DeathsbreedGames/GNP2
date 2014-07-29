@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
-import org.deathsbreedgames.gnp2.*;
+import org.deathsbreedgames.gnp2.GlobalVars;
 import org.deathsbreedgames.gnp2.entities.*;
 import org.deathsbreedgames.gnp2.renderers.ClassicModeRenderer;
 
@@ -22,8 +22,6 @@ import org.deathsbreedgames.gnp2.renderers.ClassicModeRenderer;
  * 
  */
 public class ClassicModeScreen extends BaseScreen {
-	private Game game;
-	
 	private ClassicModeRenderer renderer;
 	private boolean paused = false;
 	private boolean oldPausePressed = false;
@@ -43,8 +41,7 @@ public class ClassicModeScreen extends BaseScreen {
 	private int scoreUpTo = 10;
 	
 	
-	public ClassicModeScreen(Game game, boolean[] aiPlayers) {
-		this.game = game;
+	public ClassicModeScreen(boolean[] aiPlayers) {
 		renderer = new ClassicModeRenderer(this);
 		
 		ball = new Ball(225, 225);
@@ -109,7 +106,8 @@ public class ClassicModeScreen extends BaseScreen {
 		
 		for(int i = 0; i < scores.length; i++) {
 			if(scores[i] == scoreUpTo) {
-				game.setScreen(new WinScreen(game, i));
+				GlobalVars.winner = i;
+				setDone(true);
 			}
 		}
 		
@@ -131,7 +129,8 @@ public class ClassicModeScreen extends BaseScreen {
 
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			if(music.isPlaying()) { music.stop(); }
-			game.setScreen(new MainMenuScreen(game));
+			GlobalVars.winner = -1;
+			setDone(true);
 		}
 	}
 	

@@ -14,6 +14,8 @@ import com.badlogic.gdx.Screen;
  * 
  */
 public class BaseScreen implements Screen {
+	private boolean done = false;
+	
 	@Override
 	public void render(float delta) { }
 
@@ -34,4 +36,7 @@ public class BaseScreen implements Screen {
 
 	@Override
 	public void dispose() { }
+	
+	public boolean getDone() { return done; }
+	public void setDone(boolean nDone) { this.done = nDone; }
 }

@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import org.deathsbreedgames.gnp2.Game;
-
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
@@ -27,7 +25,6 @@ import org.deathsbreedgames.gnp2.Game;
  * 
  */
 public class MainMenuScreen extends BaseScreen {
-	public Game game;
 	private SpriteBatch batch = new SpriteBatch();
 	private Texture gnpLogo;
 	private BitmapFont textFont;
@@ -38,8 +35,7 @@ public class MainMenuScreen extends BaseScreen {
 	
 	public static int currentMenu;
 
-	public MainMenuScreen(Game game) {
-		this.game = game;
+	public MainMenuScreen() {
 		currentMenu = 0;
 		
 		gnpLogo = new Texture(Gdx.files.internal("gfx/GNP2.png"));
@@ -72,7 +68,7 @@ public class MainMenuScreen extends BaseScreen {
 		mainStage.addActor(playButton);
 		playButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new SelectScreen(game));
+				setDone(true);
 			}
 		});
 		
