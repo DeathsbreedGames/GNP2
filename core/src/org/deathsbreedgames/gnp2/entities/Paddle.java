@@ -15,18 +15,15 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Paddle extends Entity {
 	// Essential variables
-	private final float MAXVEL = 5.0f;
+	public static final float MAXVEL = 5.0f;
 	private boolean vertical;
 	private boolean ai;
-	private Ball ball;
-	Rectangle bounds;
+	private Rectangle bounds;
 
 	// Constructor
-	public Paddle(float x, float y, boolean vertical, Ball ball) {
+	public Paddle(float x, float y, boolean vertical) {
 		super(x, y);
 		this.vertical = vertical;
-		this.ai = ai;
-		this.ball = ball;
 
 		if(vertical) {
 			setBounds(new Rectangle(getX() + 17, getY() + 17, 16.0f, 120.0f));
@@ -36,20 +33,6 @@ public class Paddle extends Entity {
 	}
 
 	public void update(float delta) {
-		if(ai) {
-			if(vertical) {
-				if(ball.getX() - this.getX() > -250 && ball.getX() - this.getX() < 250) {
-					if(ball.getY() > this.getY() + 75) { setVelY(MAXVEL); }
-					else if(ball.getY() < this.getY() + 25) { setVelY(-MAXVEL); }
-				}
-			} else {
-				if(ball.getY() - this.getY() > -250 && ball.getY() - this.getY() < 250) {
-					if(ball.getX() > this.getX() + 75) { setVelX(MAXVEL); }
-					else if(ball.getX() < this.getX() + 25) { setVelX(-MAXVEL); }
-				}
-			}
-		}
-		
 		super.update(delta);
 		
 		if(vertical) {

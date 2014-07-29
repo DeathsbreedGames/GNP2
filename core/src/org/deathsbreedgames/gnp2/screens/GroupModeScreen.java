@@ -46,10 +46,10 @@ public class GroupModeScreen extends BaseScreen {
 		renderer = new GroupModeRenderer(this);
 
 		ball = new Ball(225, 225);
-		players[0] = new Paddle(10.0f, 175.0f, true, ball);
-		players[1] = new Paddle(440.0f, 175.0f, true, ball);
-		players[2] = new Paddle(175.0f, 440.0f, false, ball);
-		players[3] = new Paddle(175.0f, 10.0f, false, ball);
+		players[0] = new Paddle(10.0f, 175.0f, true);
+		players[1] = new Paddle(440.0f, 175.0f, true);
+		players[2] = new Paddle(175.0f, 440.0f, false);
+		players[3] = new Paddle(175.0f, 10.0f, false);
 		
 		for(int i = 0; i < players.length; i++) { players[i].setAI(aiPlayers[i]); }
 
@@ -82,6 +82,22 @@ public class GroupModeScreen extends BaseScreen {
 		if(!players[3].getAI()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.COMMA)) { players[3].movePos(); }
 			if(Gdx.input.isKeyPressed(Input.Keys.M)) { players[3].moveNeg(); }
+		}
+		
+		for(int i = 0; i < players.length; i++) {
+			if(players[i].getAI()) {
+				if(players[i].getVertical()) {
+					if(ball.getX() - players[i].getX() > -250 && ball.getX() - players[i].getX() < 250) {
+						if(ball.getY() > players[i].getY() + 75) { players[i].setVelY(Paddle.MAXVEL); }
+						else if(ball.getY() < players[i].getY() + 25) { players[i].setVelY(-Paddle.MAXVEL); }
+					}
+				} else {
+					if(ball.getY() - players[i].getY() > -250 && ball.getY() - players[i].getY() < 250) {
+						if(ball.getX() > players[i].getX() + 75) { players[i].setVelX(Paddle.MAXVEL); }
+						else if(ball.getX() < players[i].getX() + 25) { players[i].setVelX(-Paddle.MAXVEL); }
+					}
+				}
+			}
 		}
 
 		if(!paused) {

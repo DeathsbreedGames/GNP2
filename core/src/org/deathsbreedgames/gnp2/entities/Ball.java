@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
+import org.deathsbreedgames.gnp2.GlobalVars;
+
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
@@ -33,7 +35,15 @@ public class Ball extends Entity {
 		super.update(delta);
 		setBoundsPosition(getX() + 15, getY() + 12);
 		if(timer == 0) {
-			moveAngle = MathUtils.random(360.0f);
+			if(GlobalVars.currentGameMode == 1) {
+				while(true) {
+					moveAngle = MathUtils.random(360.0f);
+					if(moveAngle <= 75.0f && moveAngle >= 335.0f) { break; }
+					else if(moveAngle >= 115 && moveAngle <= 245) { break; }
+				}
+			} else {
+				moveAngle = MathUtils.random(360.0f);
+			}
 			setVelX(MathUtils.cosDeg(moveAngle) * MAXVEL);
 			setVelY(MathUtils.sinDeg(moveAngle) * MAXVEL);
 			start = true;

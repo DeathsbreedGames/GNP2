@@ -45,8 +45,8 @@ public class ClassicModeScreen extends BaseScreen {
 		renderer = new ClassicModeRenderer(this);
 		
 		ball = new Ball(225, 225);
-		players[0] = new Paddle(10.0f, 175.0f, true, ball);
-		players[1] = new Paddle(440.0f, 175.0f, true, ball);
+		players[0] = new Paddle(10.0f, 175.0f, true);
+		players[1] = new Paddle(440.0f, 175.0f, true);
 		
 		for(int i = 0; i < players.length; i++) { players[i].setAI(aiPlayers[i]); }
 		
@@ -71,6 +71,15 @@ public class ClassicModeScreen extends BaseScreen {
 		if(!players[1].getAI()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.APOSTROPHE)) { players[1].movePos(); }
 			if(Gdx.input.isKeyPressed(Input.Keys.SLASH)) { players[1].moveNeg(); }
+		}
+		
+		for(int i = 0; i < players.length; i++) {
+			if(players[i].getAI()) {
+				if(ball.getX() - players[i].getX() > -300 && ball.getX() - players[i].getX() < 300) {
+					if(ball.getY() > players[i].getY() + 75) { players[i].setVelY(Paddle.MAXVEL); }
+					else if(ball.getY() < players[i].getY() + 25) { players[i].setVelY(-Paddle.MAXVEL); }
+				}
+			}
 		}
 		
 		if(!paused) {
