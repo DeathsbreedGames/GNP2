@@ -170,7 +170,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "Work - Author - License", 20, 400);
 			textFont.draw(batch, "Graphics - Nicolás A. Ortega - CC-BY-SA", 20, 370);
 			textFont.draw(batch, "Music/Sfx - Nicolás A. Ortega - CC-BY-SA", 20, 340);
-			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU GPLv3", 20, 310);
+			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU Affero GPLv3", 20, 310);
 			textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
 			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
 			textFont.draw(batch, "https://github.com/DeathsbreedGames", 40, 190);
