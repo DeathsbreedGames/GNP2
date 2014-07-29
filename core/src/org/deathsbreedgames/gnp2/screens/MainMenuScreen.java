@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This class renders and controls the Main Menu

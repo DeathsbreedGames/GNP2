@@ -3,7 +3,7 @@ package org.deathsbreedgames.gnp2;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This class allows for access to variables from

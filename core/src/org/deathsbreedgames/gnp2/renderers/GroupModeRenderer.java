@@ -20,7 +20,7 @@ import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This class renders all the graphics for the

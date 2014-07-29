@@ -8,7 +8,7 @@ import org.deathsbreedgames.gnp2.screens.*;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This is the starting class. All it's good for

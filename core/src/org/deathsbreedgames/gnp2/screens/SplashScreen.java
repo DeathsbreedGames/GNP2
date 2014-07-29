@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This is simply the splash screen that appears

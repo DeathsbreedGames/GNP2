@@ -13,7 +13,7 @@ import org.deathsbreedgames.gnp2.renderers.ClassicModeRenderer;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This class is in charge of handling the gameplay

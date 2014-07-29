@@ -18,7 +18,7 @@ import org.deathsbreedgames.gnp2.GlobalVars;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This class is between the Main Menu and the

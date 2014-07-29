@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * @author Nicolás A. Ortega
  * @copyright DeathsbreedGames
- * @license GNU GPLv3
+ * @license GNU Affero GPLv3
  * @year 2014
  * 
  * Description: This is a template class used to reduce the
