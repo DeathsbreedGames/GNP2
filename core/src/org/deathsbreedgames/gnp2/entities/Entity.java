@@ -14,8 +14,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Entity {
 	// Variables used for movement & positioning of entity
-	Vector2 position;
-	Vector2 velocity;
+	private Vector2 position;
+	private Vector2 velocity;
 	
 	// Constructor
 	public Entity(float x, float y) {
