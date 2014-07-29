@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import org.deathsbreedgames.gnp2.GlobalVars;
 import org.deathsbreedgames.gnp2.screens.ClassicModeScreen;
 
 /**
@@ -134,17 +135,16 @@ public class ClassicModeRenderer {
 		buttonStage.draw();
 	}
 	
-	private boolean getSoundOn() { return screen.getSoundOn(); }
-	private boolean getMusicOn() { return screen.getMusicOn(); }
+	private boolean getSoundOn() { return GlobalVars.soundOn; }
+	private boolean getMusicOn() { return GlobalVars.musicOn; }
 	
-	private void setSoundOn() { screen.setSoundOn(); }
-	private void setSoundOff() { screen.setSoundOff(); }
-	private void setMusicOn() { screen.setMusicOn(); }
-	private void setMusicOff() { screen.setMusicOff(); }
+	private void setSoundOn() { GlobalVars.soundOn = true; }
+	private void setSoundOff() { GlobalVars.soundOn = false; }
+	private void setMusicOn() { GlobalVars.musicOn = true; }
+	private void setMusicOff() { GlobalVars.musicOn = false; }
 	
-	@Override
 	public void dispose() {
-		batch.dispose()
+		batch.dispose();
 		buttonStage.dispose();
 		scoreFont.dispose();
 		pausedFont.dispose();

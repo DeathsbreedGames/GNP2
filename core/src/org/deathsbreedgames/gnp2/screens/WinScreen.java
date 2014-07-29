@@ -21,6 +21,8 @@ import org.deathsbreedgames.gnp2.Game;
  * @license GNU GPLv3
  * @year 2014
  * 
+ * Description: This screen appears when a player wins the game.
+ * 
  */
 public class WinScreen extends BaseScreen {
 	public Game game;
