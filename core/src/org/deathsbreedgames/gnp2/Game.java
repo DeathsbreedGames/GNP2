@@ -16,45 +16,31 @@ import org.deathsbreedgames.gnp2.screens.*;
  * 
  */
 public class Game extends com.badlogic.gdx.Game {
+	// Set the screen
 	@Override
 	public void create() { setScreen(new SplashScreen()); }
 	
 	@Override
 	public void render() {
-		BaseScreen currentScreen = getCurrentScreen();
+		BaseScreen currentScreen = (BaseScreen) super.getScreen();
 		
+		// Run the render method of the current screen
 		currentScreen.render(Gdx.graphics.getDeltaTime());
 		
+		// This is used so as to properly dispose of the screens
 		if(currentScreen.getDone()) {
-			if(currentScreen instanceof SplashScreen) {
-				currentScreen.dispose();
-				setScreen(new MainMenuScreen());
-			} else if(currentScreen instanceof MainMenuScreen) {
-				currentScreen.dispose();
-				setScreen(new SelectScreen());
-			} else if(currentScreen instanceof SelectScreen) {
-				if(GlobalVars.currentGameMode == -1) {
-					currentScreen.dispose();
-					setScreen(new MainMenuScreen());
-				} else if(GlobalVars.currentGameMode == 0) {
-					currentScreen.dispose();
-					setScreen(new GroupModeScreen(GlobalVars.ai));
-				} else if(GlobalVars.currentGameMode == 1) {
-					currentScreen.dispose();
-					setScreen(new ClassicModeScreen(GlobalVars.ai));
-				}
+			if(currentScreen instanceof SplashScreen) { setScreen(new MainMenuScreen()); }
+			else if(currentScreen instanceof MainMenuScreen) { setScreen(new SelectScreen()); }
+			else if(currentScreen instanceof SelectScreen) {
+				if(GlobalVars.currentGameMode == -1) { setScreen(new MainMenuScreen()); }
+				else if(GlobalVars.currentGameMode == 0) { setScreen(new GroupModeScreen(GlobalVars.ai)); }
+				else if(GlobalVars.currentGameMode == 1) { setScreen(new ClassicModeScreen(GlobalVars.ai)); }
 			} else if(currentScreen instanceof GroupModeScreen || currentScreen instanceof ClassicModeScreen) {
-				currentScreen.dispose();
 				if(GlobalVars.winner == -1) { setScreen(new MainMenuScreen()); }
 				else { setScreen(new WinScreen(GlobalVars.winner)); }
-			} else if(currentScreen instanceof WinScreen) {
-				currentScreen.dispose();
-				setScreen(new MainMenuScreen());
-			}
+			} else if(currentScreen instanceof WinScreen) { setScreen(new MainMenuScreen()); }
 		}
 	}
-	
-	public BaseScreen getCurrentScreen() { return (BaseScreen) super.getScreen(); }
 	
 	@Override
 	public void dispose() { super.dispose(); }

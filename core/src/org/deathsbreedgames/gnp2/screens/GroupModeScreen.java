@@ -21,14 +21,15 @@ import org.deathsbreedgames.gnp2.renderers.GroupModeRenderer;
  * 
  */
 public class GroupModeScreen extends BaseScreen {
-	// The renderer class
+	// The renderer class used to draw everything
 	private GroupModeRenderer renderer;
+	
+	// Pause variables
 	private boolean paused = false;
 	private boolean oldPausePressed = false;
 
-	// The array of players
+	// Entities:
 	public Paddle[] players = new Paddle[4];
-	// The ball
 	public Ball ball;
 
 	// Audio:
@@ -36,37 +37,45 @@ public class GroupModeScreen extends BaseScreen {
 	private Sound score;
 	private Music music;
 
-	// Scoring system
+	// Scoring system:
 	private int ballLastTouch = -1;
 	public int[] scores = new int[4];
 	private int scoreUpTo = 10;
 
 	// Constructor
 	public GroupModeScreen(boolean[] aiPlayers) {
+		// Create the renderer
 		renderer = new GroupModeRenderer(this);
-
+		
+		// Create the entities:
 		ball = new Ball(225, 225);
 		players[0] = new Paddle(10.0f, 175.0f, true);
 		players[1] = new Paddle(440.0f, 175.0f, true);
 		players[2] = new Paddle(175.0f, 440.0f, false);
 		players[3] = new Paddle(175.0f, 10.0f, false);
 		
+		// Set player's AI variable
 		for(int i = 0; i < players.length; i++) { players[i].setAI(aiPlayers[i]); }
-
+		
+		// Create the audio
 		hit = Gdx.audio.newSound(Gdx.files.internal("sfx/Pop.ogg"));
 		score = Gdx.audio.newSound(Gdx.files.internal("sfx/Score.ogg"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("sfx/The_Machines.ogg"));
 		if(GlobalVars.musicOn) { music.play(); }
 		music.setLooping(true);
-
+		
+		// Set all scores to 0 (just in case)
 		for(int i = 0; i < scores.length; i++) { scores[i] = 0; }
 	}
-
+	
+	// Update
 	@Override
 	public void render(float delta) {
+		// Play or stop music accordingly
 		if(GlobalVars.musicOn && !music.isPlaying()) { music.play(); }
 		else if(!GlobalVars.musicOn && music.isPlaying()) { music.stop(); }
 		
+		// If a player is not AI check for user input
 		if(!players[0].getAI()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.W)) { players[0].movePos(); }
 			if(Gdx.input.isKeyPressed(Input.Keys.S)) { players[0].moveNeg(); }
@@ -84,6 +93,7 @@ public class GroupModeScreen extends BaseScreen {
 			if(Gdx.input.isKeyPressed(Input.Keys.M)) { players[3].moveNeg(); }
 		}
 		
+		// If a player is AI do AI stuff
 		for(int i = 0; i < players.length; i++) {
 			if(players[i].getAI()) {
 				if(players[i].getVertical()) {
@@ -99,14 +109,16 @@ public class GroupModeScreen extends BaseScreen {
 				}
 			}
 		}
-
+		
+		// If the game is not paused update the ball and the players
 		if(!paused) {
 			ball.update(delta);
 			for(int i = 0; i < players.length; i++) {
 				players[i].update(delta);
 			}
 		}
-
+		
+		// Paddle Rebound:
 		if(ball.getBounds().overlaps(players[0].getBounds())) {
 			float newAngle = -((((players[0].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) - 90);
 			ball.setMoveAngle(newAngle);
@@ -120,7 +132,6 @@ public class GroupModeScreen extends BaseScreen {
 			ballLastTouch = 1;
 			if(GlobalVars.soundOn) hit.play(0.6f);
 		}
-
 		if(ball.getBounds().overlaps(players[2].getBounds())) {
 			float newAngle = (((ball.getX() + 25) - (players[2].getX() + 75) + 60) * 180 / 120) + 180;
 			ball.setMoveAngle(newAngle);
@@ -134,7 +145,8 @@ public class GroupModeScreen extends BaseScreen {
 			ballLastTouch = 3;
 			if(GlobalVars.soundOn) hit.play(0.6f);
 		}
-
+		
+		// Scoring:
 		if(ball.getX() <= -50) {
 			if(ballLastTouch == -1 || ballLastTouch == 0) { scores[0]--; }
 			else { scores[ballLastTouch]++; }
@@ -161,8 +173,10 @@ public class GroupModeScreen extends BaseScreen {
 			if(GlobalVars.soundOn) score.play();
 		}
 		
+		// If someone won
 		for(int i = 0; i < scores.length; i++) {
 			if(scores[i] == scoreUpTo) {
+				// Switch to the WinScreen
 				GlobalVars.winner = i;
 				setDone(true);
 			}
@@ -172,25 +186,32 @@ public class GroupModeScreen extends BaseScreen {
 			// Draw everything on the screen
 			renderer.render(delta);
 		} else {
+			// Only draw paused stuff on the screen
 			renderer.renderPaused(delta);
 		}
-
+		
+		/*
+		 * Follows is a complicated (not really) system of telling if
+		 * the pause key was just pressed (to avoid endless 30 fps
+		 * change between paused and unpaused.
+		 */
 		boolean newPausePressed = Gdx.input.isKeyPressed(Input.Keys.P);
 
 		if(newPausePressed && !oldPausePressed) {
 			if(paused) { paused = false; }
 			else { paused = true; }
 		}
-
 		oldPausePressed = newPausePressed;
-
+		
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			// Quit to the Main Menu
 			if(music.isPlaying()) { music.stop(); }
 			GlobalVars.winner = -1;
 			setDone(true);
 		}
 	}
-
+	
+	// Dispose
 	@Override
 	public void dispose() {
 		renderer.dispose();

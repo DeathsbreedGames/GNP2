@@ -33,8 +33,16 @@ public class MainMenuScreen extends BaseScreen {
 	private BitmapFont buttonFont;
 	private TextButtonStyle buttonStyle;
 	
+	/*
+	 * This variable is used in order to know which menu to draw using
+	 * the following scheme:
+	 * 		0 = Main Menu
+	 * 		1 = Instructions Menu
+	 * 		2 = Credits Menu
+	 */
 	public static int currentMenu;
 
+	// Constructor
 	public MainMenuScreen() {
 		currentMenu = 0;
 		
@@ -59,6 +67,7 @@ public class MainMenuScreen extends BaseScreen {
 		buttonStyle.over = buttonSkin.getDrawable("button_light_green");
 		buttonStyle.font = buttonFont;
 		
+		// This function is used to make the code a little neater
 		createButtons();
 	}
 	
@@ -77,6 +86,7 @@ public class MainMenuScreen extends BaseScreen {
 		mainStage.addActor(instructionsButton);
 		instructionsButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Change to Instructions Menu
 				currentMenu = 1;
 				Gdx.input.setInputProcessor(otherStage);
 			}
@@ -87,17 +97,20 @@ public class MainMenuScreen extends BaseScreen {
 		mainStage.addActor(creditsButton);
 		creditsButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Change to Credits Menu
 				currentMenu = 2;
 				Gdx.input.setInputProcessor(otherStage);
 			}
 		});
 		
+		// This is for desktop targetting only, not HTML5
 		if(Gdx.app.getType() == ApplicationType.Desktop) {
 			TextButton exitButton = new TextButton("Exit", buttonStyle);
 			exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, creditsButton.getY() - exitButton.getHeight());
 			mainStage.addActor(exitButton);
 			exitButton.addListener(new ChangeListener() {
 				public void changed(ChangeEvent event, Actor actor) {
+					// Quit the application
 					Gdx.app.exit();
 				}
 			});
@@ -108,16 +121,20 @@ public class MainMenuScreen extends BaseScreen {
 		otherStage.addActor(backButton);
 		backButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Change to Main Menu
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(mainStage);
 			}
 		});
 	}
 
+	// Update
 	@Override
 	public void render(float delta) {
+		// Clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		if(currentMenu == 0) {
 			mainStage.act(delta);
 			mainStage.draw();
@@ -161,7 +178,8 @@ public class MainMenuScreen extends BaseScreen {
 			batch.end();
 		}
 	}
-
+	
+	// Dispose
 	@Override
 	public void dispose() {
 		batch.dispose();

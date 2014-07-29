@@ -14,6 +14,7 @@ import com.badlogic.gdx.Screen;
  * 
  */
 public class BaseScreen implements Screen {
+	// This variable indicates whether or not it is time to switch screens
 	private boolean done = false;
 	
 	@Override
@@ -37,6 +38,7 @@ public class BaseScreen implements Screen {
 	@Override
 	public void dispose() { }
 	
+	// Getter/Setter methods:
 	public boolean getDone() { return done; }
 	public void setDone(boolean nDone) { this.done = nDone; }
 }

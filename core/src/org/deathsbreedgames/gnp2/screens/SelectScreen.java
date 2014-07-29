@@ -41,12 +41,22 @@ public class SelectScreen extends BaseScreen {
 	public TextButton backToModeSelect;
 	private TextButton backToMainMenu;
 	
+	/*
+	 * This variable is used in order to know which menu to draw using
+	 * the following scheme:
+	 * 		0 = Mode Select Menu
+	 * 		1 = Group Mode Menu
+	 * 		2 = Classic Mode Menu
+	 */
 	public static int currentMenu = 0;
 	
+	// These variables indicate whether a player is ai or not
 	public boolean[] groupAIPlayers = new boolean[4];
 	public boolean[] classicAIPlayers = new boolean[2];
 	
+	// Constructor
 	public SelectScreen() {
+		// To start, set all ai variables to false
 		for(int i = 0; i < groupAIPlayers.length; i++) { groupAIPlayers[i] = false; }
 		for(int i = 0; i < classicAIPlayers.length; i++) { classicAIPlayers[i] = false; }
 		
@@ -82,6 +92,7 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage.addActor(backToMainMenu);
 		backToMainMenu.addListener(new ChangeListener() { 
 			public void changed(ChangeEvent event, Actor actor) {
+				// Go back to the MainMenuScreen
 				GlobalVars.currentGameMode = -1;
 				setDone(true);
 			}
@@ -92,6 +103,7 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage.addActor(groupModeButton);
 		groupModeButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Go to the Group Mode Menu
 				currentMenu = 1;
 				groupModeStage.addActor(backToModeSelect);
 				Gdx.input.setInputProcessor(groupModeStage);
@@ -103,6 +115,7 @@ public class SelectScreen extends BaseScreen {
 		gameModeStage.addActor(classicModeButton);
 		classicModeButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Go to the Classic Mode Menu
 				currentMenu = 2;
 				classicModeStage.addActor(backToModeSelect);
 				Gdx.input.setInputProcessor(classicModeStage);
@@ -168,6 +181,7 @@ public class SelectScreen extends BaseScreen {
 		groupModeStage.addActor(playGroupMode);
 		playGroupMode.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Play Group Mode
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
 				GlobalVars.currentGameMode = 0;
@@ -213,6 +227,7 @@ public class SelectScreen extends BaseScreen {
 		classicModeStage.addActor(playClassicMode);
 		playClassicMode.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Play Classic Mode
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
 				GlobalVars.currentGameMode = 1;
@@ -226,16 +241,20 @@ public class SelectScreen extends BaseScreen {
 		backToModeSelect.setPosition(10, 10);
 		backToModeSelect.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Go back to the Mode Select Menu
 				currentMenu = 0;
 				Gdx.input.setInputProcessor(gameModeStage);
 			}
 		});
 	}
 	
+	// Update
 	@Override
 	public void render(float delta) {
+		// Clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		if(currentMenu == 0) {
 			gameModeStage.act(delta);
 			gameModeStage.draw();
@@ -248,6 +267,7 @@ public class SelectScreen extends BaseScreen {
 		}
 	}
 	
+	// Dispose
 	@Override
 	public void dispose() {
 		gameModeStage.dispose();

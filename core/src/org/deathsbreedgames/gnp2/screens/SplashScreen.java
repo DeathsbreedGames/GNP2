@@ -21,9 +21,11 @@ public class SplashScreen extends BaseScreen {
 	private Texture splashTexture;
 	private BitmapFont font;
 	
+	// 'a' stands for alpha, which means it is used for the fade effect
 	private int a;
 	private boolean fadeUp = true;
 	
+	// Constructor
 	public SplashScreen() {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
@@ -31,12 +33,19 @@ public class SplashScreen extends BaseScreen {
 		a = 1;
 	}
 	
+	// Update
 	@Override
 	public void render(float delta) {
+		// Clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
+		/*
+		 * The variable 'a' is an int because float variables are too
+		 * inaccurate for the 'if' statements at the required to change
+		 * screens.
+		 */
 		batch.setColor(1.0f, 1.0f, 1.0f, ((float)a)/100);
 		font.setColor(1.0f, 1.0f, 1.0f, ((float)a)/100);
 		font.draw(batch, "A", 30, 300);
@@ -51,6 +60,7 @@ public class SplashScreen extends BaseScreen {
 		if(a == 0) { setDone(true); }
 	}
 	
+	// Dispose
 	@Override
 	public void dispose() {
 		batch.dispose();

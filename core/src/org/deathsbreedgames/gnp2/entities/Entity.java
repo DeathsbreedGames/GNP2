@@ -13,16 +13,24 @@ import com.badlogic.gdx.math.Vector2;
  * 
  */
 public class Entity {
+	// Variables used for movement & positioning of entity
 	Vector2 position;
 	Vector2 velocity;
-
+	
+	// Constructor
 	public Entity(float x, float y) {
+		// Declare variables:
 		position = new Vector2(x, y);
 		velocity = new Vector2(0.0f, 0.0f);
 	}
-
-	public void update(float delta) { position.add(velocity); }
-
+	
+	// Update
+	public void update(float delta) {
+		// Add velocity to the position of the entity
+		position.add(velocity);
+	}
+	
+	// Getter/Setter methods:
 	public float getX() { return position.x; }
 	public float getY() { return position.y; }
 	public float getVelX() { return velocity.x; }

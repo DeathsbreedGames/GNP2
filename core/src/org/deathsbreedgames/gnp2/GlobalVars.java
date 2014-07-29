@@ -11,6 +11,7 @@ package org.deathsbreedgames.gnp2;
  * 
  */
 public class GlobalVars {
+	// Variables that are to be used throughout the game (by mutliple classes)
 	public static boolean soundOn = true;
 	public static boolean musicOn = true;
 	public static int winner = -1;

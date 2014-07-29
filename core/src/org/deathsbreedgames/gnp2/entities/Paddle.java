@@ -14,27 +14,35 @@ import com.badlogic.gdx.math.Rectangle;
  * 
  */
 public class Paddle extends Entity {
-	// Essential variables
+	// Maximum velocity of this entity
 	public static final float MAXVEL = 5.0f;
-	private boolean vertical;
-	private boolean ai;
+	// Variables for collision
 	private Rectangle bounds;
+	private boolean vertical;
+	// AI variable
+	private boolean ai;
 
 	// Constructor
 	public Paddle(float x, float y, boolean vertical) {
+		// Run the constructor of the super class (in this case Entity)
 		super(x, y);
+		
 		this.vertical = vertical;
-
+		
+		// Set the bounding Rectangle
 		if(vertical) {
 			setBounds(new Rectangle(getX() + 17, getY() + 17, 16.0f, 120.0f));
 		} else {
 			setBounds(new Rectangle(getX() + 17, getY() + 17, 120.0f, 16.0f));
 		}
 	}
-
+	
+	// Update
 	public void update(float delta) {
+		// Run the update method of the super-class
 		super.update(delta);
 		
+		// Do not permit movement past certain point
 		if(vertical) {
 			if(getY() < 0.0f) { setY(0.0f); }
 			else if(getY() > 350.0f) { setY(350.0f); }
@@ -43,11 +51,14 @@ public class Paddle extends Entity {
 			else if(getX() > 350.0f) { setX(350.0f); }
 		}
 		
+		// Set the velocities to 0
 		setVelX(0.0f);
 		setVelY(0.0f);
+		// Set the bounds position to the paddle's position
 		setBoundsPosition(getX() + 17, getY() + 17);
 	}
-
+	
+	// Getter/Setter methods:
 	public boolean getVertical() { return vertical; }
 	public boolean getAI() { return ai; }
 	public Rectangle getBounds() { return bounds; }

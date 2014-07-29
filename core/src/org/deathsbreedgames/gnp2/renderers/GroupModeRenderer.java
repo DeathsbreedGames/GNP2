@@ -29,15 +29,12 @@ import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
  * 
  */
 public class GroupModeRenderer {
-	// The screen that we get in the constructor
+	// The screen we use to get entity locations from
 	private GroupModeScreen screen;
-	// The drawing SpriteBatch
-	private SpriteBatch batch;
 	
-	// For drawing buttons:
+	private SpriteBatch batch;
 	private Stage buttonStage;
 	
-	// Fonts used for info drawing
 	private BitmapFont scoreFont;
 	private BitmapFont pausedFont;
 
@@ -48,7 +45,8 @@ public class GroupModeRenderer {
 	private Sprite pGreen = new Sprite();
 	private Sprite pPurple = new Sprite();
 	private Sprite ball = new Sprite();
-
+	
+	// Constructor
 	public GroupModeRenderer(GroupModeScreen screen) {
 		this.screen = screen;
 		
@@ -67,6 +65,7 @@ public class GroupModeRenderer {
 		buttonStyle.checked = buttonSkin.getDrawable("button_red");
 		buttonStyle.font = buttonFont;
 		
+		// Inverse is needed for if game starts and sound/music is off
 		TextButtonStyle buttonStyleInverse = new TextButtonStyle();
 		buttonStyleInverse.up = buttonSkin.getDrawable("button_red");
 		buttonStyleInverse.checked = buttonSkin.getDrawable("button_green");
@@ -79,6 +78,7 @@ public class GroupModeRenderer {
 		buttonStage.addActor(soundButton);
 		soundButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Turn sound on/off accordingly
 				if(getSoundOn()) { setSoundOff(); }
 				else { setSoundOn(); }
 			}
@@ -90,6 +90,7 @@ public class GroupModeRenderer {
 		buttonStage.addActor(musicButton);
 		musicButton.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
+				// Turn music on/off accordingly
 				if(getMusicOn()) { setMusicOff(); }
 				else { setMusicOn(); }
 			}
@@ -112,11 +113,15 @@ public class GroupModeRenderer {
 		pPurple = spriteAtlas.createSprite("Paddle_purple");
 		ball = spriteAtlas.createSprite("Ball_orange");
 	}
-
+	
+	// Update
 	public void render(float delta) {
+		// Clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
+		// Draw entities:
 		batch.draw(bg, 0.0f, 0.0f);
 		batch.draw(pBlue, screen.players[0].getX(), screen.players[0].getY());
 		batch.draw(pRed, screen.players[1].getX(), screen.players[1].getY());
@@ -124,6 +129,7 @@ public class GroupModeRenderer {
 		batch.draw(pPurple, screen.players[3].getX(), screen.players[3].getY());
 		batch.draw(ball, screen.ball.getX(), screen.ball.getY());
 		
+		// Draw info:
 		scoreFont.setColor(0.0f, 0.0f, 1.0f, 1.0f);
 		scoreFont.draw(batch, "" + screen.scores[0], 10, 460);
 		scoreFont.setColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -142,21 +148,27 @@ public class GroupModeRenderer {
 		}
 		batch.end();
 		
-		buttonStage.act(delta);
-		buttonStage.draw();
-	}
-
-	public void renderPaused(float delta) {
-		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		pausedFont.draw(batch, "PAUSED", 175, 250);
-		batch.end();
-		
+		// Draw buttons:
 		buttonStage.act(delta);
 		buttonStage.draw();
 	}
 	
+	// Update when paused
+	public void renderPaused(float delta) {
+		// Clear screen
+		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		batch.begin();
+		pausedFont.draw(batch, "PAUSED", 175, 250);
+		batch.end();
+		
+		// Draw buttons:
+		buttonStage.act(delta);
+		buttonStage.draw();
+	}
+	
+	// Getter/Setter methods:
 	private boolean getSoundOn() { return GlobalVars.soundOn; }
 	private boolean getMusicOn() { return GlobalVars.musicOn; }
 	
@@ -164,7 +176,8 @@ public class GroupModeRenderer {
 	private void setSoundOff() { GlobalVars.soundOn = false; }
 	private void setMusicOn() { GlobalVars.musicOn = true; }
 	private void setMusicOff() { GlobalVars.musicOn = false; }
-
+	
+	// Dispose
 	public void dispose() {
 		batch.dispose();
 		buttonStage.dispose();
