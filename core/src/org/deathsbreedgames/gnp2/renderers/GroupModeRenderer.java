@@ -64,11 +64,16 @@ public class GroupModeRenderer {
 		
 		TextButtonStyle buttonStyle = new TextButtonStyle();
 		buttonStyle.up = buttonSkin.getDrawable("button_green");
-		buttonStyle.down = buttonSkin.getDrawable("button_light_green");
 		buttonStyle.checked = buttonSkin.getDrawable("button_red");
 		buttonStyle.font = buttonFont;
 		
+		TextButtonStyle buttonStyleInverse = new TextButtonStyle();
+		buttonStyleInverse.up = buttonSkin.getDrawable("button_red");
+		buttonStyleInverse.checked = buttonSkin.getDrawable("button_green");
+		buttonStyleInverse.font = buttonFont;
+		
 		TextButton soundButton = new TextButton("S", buttonStyle);
+		if(!GlobalVars.soundOn) { soundButton.setStyle(buttonStyleInverse); }
 		soundButton.pad(0, 10, 0, 10);
 		soundButton.setPosition(Gdx.graphics.getWidth() - soundButton.getWidth(), Gdx.graphics.getHeight() - soundButton.getHeight());
 		buttonStage.addActor(soundButton);
@@ -80,6 +85,7 @@ public class GroupModeRenderer {
 		});
 		
 		TextButton musicButton = new TextButton("M", buttonStyle);
+		if(!GlobalVars.musicOn) { musicButton.setStyle(buttonStyleInverse); }
 		musicButton.setPosition(soundButton.getX() - musicButton.getWidth(), Gdx.graphics.getHeight() - musicButton.getHeight());
 		buttonStage.addActor(musicButton);
 		musicButton.addListener(new ChangeListener() {
