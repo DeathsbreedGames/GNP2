@@ -77,20 +77,20 @@ public class GroupModeScreen extends BaseScreen {
 		
 		// If a player is not AI check for user input
 		if(!players[0].getAI()) {
-			if(Gdx.input.isKeyPressed(Input.Keys.W)) { players[0].movePos(); }
-			if(Gdx.input.isKeyPressed(Input.Keys.S)) { players[0].moveNeg(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.Q)) { players[0].movePos(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.A)) { players[0].moveNeg(); }
 		}
 		if(!players[1].getAI()) {
-			if(Gdx.input.isKeyPressed(Input.Keys.APOSTROPHE)) { players[1].movePos(); }
-			if(Gdx.input.isKeyPressed(Input.Keys.SLASH)) { players[1].moveNeg(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.LEFT_BRACKET)) { players[1].movePos(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.SEMICOLON)) { players[1].moveNeg(); }
 		}
 		if(!players[2].getAI()) {
-			if(Gdx.input.isKeyPressed(Input.Keys.B)) { players[2].movePos(); }
-			if(Gdx.input.isKeyPressed(Input.Keys.V)) { players[2].moveNeg(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.V)) { players[2].movePos(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.C)) { players[2].moveNeg(); }
 		}
 		if(!players[3].getAI()) {
-			if(Gdx.input.isKeyPressed(Input.Keys.COMMA)) { players[3].movePos(); }
-			if(Gdx.input.isKeyPressed(Input.Keys.M)) { players[3].moveNeg(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.M)) { players[3].movePos(); }
+			if(Gdx.input.isKeyPressed(Input.Keys.N)) { players[3].moveNeg(); }
 		}
 		
 		// If a player is AI do AI stuff

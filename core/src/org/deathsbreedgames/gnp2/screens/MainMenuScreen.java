@@ -150,10 +150,10 @@ public class MainMenuScreen extends BaseScreen {
 			buttonFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
 			buttonFont.draw(batch, "Instructions", 195, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			textFont.draw(batch, "Left Player: W, S", 20, 400);
-			textFont.draw(batch, "Right Player: APOSTROPHE, SLASH", 20, 370);
-			textFont.draw(batch, "Top Player: V, B", 20, 340);
-			textFont.draw(batch, "Bottom Player: M, COMMA", 20, 310);
+			textFont.draw(batch, "Left Player: Q, A", 20, 400);
+			textFont.draw(batch, "Right Player: LEFT BRACKET, SEMICOLON", 20, 370);
+			textFont.draw(batch, "Top Player: C, V", 20, 340);
+			textFont.draw(batch, "Bottom Player: N, M", 20, 310);
 			textFont.draw(batch, "Pause Game: P", 20, 280);
 			textFont.draw(batch, "Quit to Menu: ESC", 20, 250);
 			textFont.draw(batch, "In 1v1v1v1 the objective is to be the last person to touch the ball", 20, 200);
@@ -174,7 +174,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU Affero GPLv3", 20, 310);
 			textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
 			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
-			textFont.draw(batch, "https://github.com/DeathsbreedGames", 40, 190);
+			textFont.draw(batch, "https://deathsbreedgames.github.io/", 40, 190);
 			textFont.draw(batch, "v1.0", 455, 25);
 			batch.end();
 		}
