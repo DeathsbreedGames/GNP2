@@ -157,7 +157,8 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "Pause Game: P", 20, 280);
 			textFont.draw(batch, "Quit to Menu: ESC", 20, 250);
 			textFont.draw(batch, "In 1v1v1v1 the objective is to be the last person to touch the ball", 20, 200);
-			textFont.draw(batch, "right before it goes into someone else's goal. Have fun!", 20, 170);
+			textFont.draw(batch, "right before it goes into someone else's goal. The first player to", 20, 170);
+			textFont.draw(batch, "get 10 points wins the game. Have fun!", 20, 140);
 			batch.end();
 		} else if(currentMenu == 2) {
 			otherStage.act(delta);
