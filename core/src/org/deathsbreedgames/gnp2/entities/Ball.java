@@ -23,6 +23,8 @@ public class Ball extends Entity {
 	public int timer = 90;
 	public boolean start = false;
 	
+	public static int startingPlayer = -1;
+	
 	// Maximum velocity of this entity
 	private final float MAXVEL = 8.0f;
 	// Collision bounds
@@ -46,15 +48,15 @@ public class Ball extends Entity {
 		setBoundsPosition(getX() + 15, getY() + 12);
 		// Countdown stuff:
 		if(timer == 0) {
-			if(GlobalVars.currentGameMode == 1) {
-				while(true) {
-					moveAngle = MathUtils.random(360.0f);
-					if(moveAngle <= 75.0f && moveAngle >= 335.0f) { break; }
-					else if(moveAngle >= 115 && moveAngle <= 245) { break; }
-				}
-			} else {
-				moveAngle = MathUtils.random(360.0f);
+			if(startingPlayer == -1) {
+				if(GlobalVars.currentGameMode == 0) { startingPlayer = (int)MathUtils.random(3); }
+				else { startingPlayer = (int)MathUtils.random(1); }
 			}
+			if(startingPlayer == 0) { moveAngle = MathUtils.random(20) + 170; }
+			else if(startingPlayer == 1) { moveAngle = MathUtils.random(20) - 10; }
+			else if(startingPlayer == 2) { moveAngle = MathUtils.random(20) + 80; }
+			else if(startingPlayer == 3) { moveAngle = MathUtils.random(20) + 260; }
+			
 			setVelX(MathUtils.cosDeg(moveAngle) * MAXVEL);
 			setVelY(MathUtils.sinDeg(moveAngle) * MAXVEL);
 			start = true;
@@ -63,9 +65,10 @@ public class Ball extends Entity {
 	}
 	
 	// Reset Ball
-	public void reset(float x, float y) {
+	public void reset(float x, float y, int startingPlayer) {
 		timer = 90;
 		start = false;
+		this.startingPlayer = startingPlayer;
 		setX(x);
 		setY(y);
 		setVelX(0.0f);

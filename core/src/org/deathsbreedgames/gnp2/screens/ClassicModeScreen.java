@@ -116,11 +116,11 @@ public class ClassicModeScreen extends BaseScreen {
 		// Scoring/Rebound:
 		if(ball.getX() <= -50) {
 			scores[1]++;
-			ball.reset(225, 225);
+			ball.reset(225, 225, 0);
 			if(GlobalVars.soundOn) score.play();
 		} else if(ball.getX() >= 500) {
 			scores[0]++;
-			ball.reset(225, 225);
+			ball.reset(225, 225, 1);
 			if(GlobalVars.soundOn) score.play();
 		} else if(ball.getY() <= 0 || ball.getY() >= 450) {
 			ball.setMoveAngle(360 - ball.getMoveAngle());
