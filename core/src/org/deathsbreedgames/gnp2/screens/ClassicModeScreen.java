@@ -102,12 +102,12 @@ public class ClassicModeScreen extends BaseScreen {
 		
 		// Paddle Rebound:
 		if(ball.getBounds().overlaps(players[0].getBounds())) {
-			float newAngle = -((((players[0].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) - 90);
+			float newAngle = (((ball.getY() + 25) - (players[0].getY() + 75)) * 140 / 170);
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[0].getX() + 20);
 			if(GlobalVars.soundOn) hit.play(0.6f);
 		} else if(ball.getBounds().overlaps(players[1].getBounds())) {
-			float newAngle = (((players[1].getY() + 75) - (ball.getY() + 25) + 60) * 180 / 120) + 90;
+			float newAngle = (((players[1].getY() + 75) - (ball.getY() + 25)) * 140 / 170) + 180;
 			ball.setMoveAngle(newAngle);
 			ball.setX(players[1].getX() - 26);
 			if(GlobalVars.soundOn) hit.play(0.6f);
