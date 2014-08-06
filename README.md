@@ -5,11 +5,9 @@ GNP2 is an improvement on GNP, and on Pong games in general. In GNP2 you can pla
 
 
 <h3>Building from Source</h3>
-This game was built using the libGDX libraries, and you will need to use the gradlew compiler that comes with the source-code to GNP2.
+This game was built using the libGDX libraries, and you will need to use the gradle compiler that comes with the source-code to GNP2.
 
-If you are running Linux or Mac, go to the source-code directory and run the following command: <code>./gradlew desktop:dist</code>. You will find the JAR file here: <code>desktop/build/libs/desktop-1.0.jar</code>.
-
-Otherwise, if you are running Windows, run <code>./gradlew.bat desktop:dist</code>. And the JAR file will also be in <code>desktop/build/libs/desktop-1.0.jar</code>.
+To compile: go to the source-code directory. If you run Mac or Linux, run <code>./gradlew desktop:dist</code>; if you run Windows, run <code>./gradlew.bat desktop:dist</code>. You will find the JAR file here: <code>desktop/build/libs/desktop-1.0.jar</code>.
 
 Those are the instructions for a desktop standalone build. If you wish to target other platforms you can refer to the libGDX documentation <a href="https://github.com/libgdx/libgdx/wiki/Gradle-on-the-Commandline" >here</a>. However, please take into account that GNP2 is currently only made for Desktop and HTML/Javascript targetting.
 
