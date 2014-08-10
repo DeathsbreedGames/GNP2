@@ -179,6 +179,7 @@ public class GroupModeScreen extends BaseScreen {
 				// Switch to the WinScreen
 				GlobalVars.winner = i;
 				setDone(true);
+				music.stop();
 			}
 		}
 
