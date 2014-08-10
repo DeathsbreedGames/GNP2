@@ -175,7 +175,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
 			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
 			textFont.draw(batch, "https://deathsbreedgames.github.io/", 40, 190);
-			textFont.draw(batch, "v1.0", 455, 25);
+			textFont.draw(batch, "v1.0.1", 450, 25);
 			batch.end();
 		}
 	}
