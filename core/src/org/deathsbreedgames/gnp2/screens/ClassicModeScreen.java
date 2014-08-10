@@ -132,6 +132,7 @@ public class ClassicModeScreen extends BaseScreen {
 				// Switch to the WinScreen
 				GlobalVars.winner = i;
 				setDone(true);
+				music.stop();
 			}
 		}
 		

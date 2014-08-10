@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Disposable;
 
 import org.deathsbreedgames.gnp2.GlobalVars;
 import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
@@ -28,7 +29,7 @@ import org.deathsbreedgames.gnp2.screens.GroupModeScreen;
  * clean, and therefore easier to read.
  * 
  */
-public class GroupModeRenderer {
+public class GroupModeRenderer implements Disposable {
 	// The screen we use to get entity locations from
 	private GroupModeScreen screen;
 	
@@ -178,6 +179,7 @@ public class GroupModeRenderer {
 	private void setMusicOff() { GlobalVars.musicOn = false; }
 	
 	// Dispose
+	@Override
 	public void dispose() {
 		batch.dispose();
 		buttonStage.dispose();
