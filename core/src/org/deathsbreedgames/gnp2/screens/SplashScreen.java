@@ -1,6 +1,7 @@
 package org.deathsbreedgames.gnp2.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,6 +21,7 @@ public class SplashScreen extends BaseScreen {
 	private SpriteBatch batch;
 	private Texture splashTexture;
 	private BitmapFont font;
+	private boolean oldMousePressed = false;
 	
 	// 'a' stands for alpha, which means it is used for the fade effect
 	private int a;
@@ -39,6 +41,10 @@ public class SplashScreen extends BaseScreen {
 		// Clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+		if(mousePressed && !oldMousePressed) { Gdx.net.openURI("http://deathsbreedgames.github.io/"); }
+		oldMousePressed = mousePressed;
 		
 		batch.begin();
 		/*
