@@ -39,6 +39,7 @@ public class Game extends com.badlogic.gdx.Game {
 				if(GlobalVars.winner == -1) { setScreen(new MainMenuScreen()); }
 				else { setScreen(new WinScreen(GlobalVars.winner)); }
 			} else if(currentScreen instanceof WinScreen) { setScreen(new MainMenuScreen()); }
+			currentScreen.dispose();
 		}
 	}
 	
