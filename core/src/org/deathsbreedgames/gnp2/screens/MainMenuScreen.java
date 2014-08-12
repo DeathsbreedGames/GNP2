@@ -1,6 +1,7 @@
 package org.deathsbreedgames.gnp2.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,6 +33,8 @@ public class MainMenuScreen extends BaseScreen {
 	private Stage mainStage, otherStage;
 	private BitmapFont buttonFont;
 	private TextButtonStyle buttonStyle;
+
+	private boolean oldMousePressed = false;
 	
 	/*
 	 * This variable is used in order to know which menu to draw using
@@ -163,6 +166,10 @@ public class MainMenuScreen extends BaseScreen {
 		} else if(currentMenu == 2) {
 			otherStage.act(delta);
 			otherStage.draw();
+			
+			int mX = Gdx.input.getX();
+			int mY = Gdx.input.getY();
+			boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 
 			batch.begin();
 			buttonFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
@@ -172,11 +179,23 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "Graphics - Nicolás A. Ortega - CC-BY-SA", 20, 370);
 			textFont.draw(batch, "Music/Sfx - Nicolás A. Ortega - CC-BY-SA", 20, 340);
 			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU Affero GPLv3", 20, 310);
-			textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
+			if(mX >= 20 && mX <= 436 && mY >= 250 && mY <= 265) {
+				textFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
+				textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
+				textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+				if(mousePressed && !oldMousePressed) { Gdx.net.openURI("https://github.com/DeathsbreedGames/GNP2"); }
+			} else { textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250); }
 			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
-			textFont.draw(batch, "https://deathsbreedgames.github.io/", 40, 190);
+			if(mX >= 40 && mX <= 294 && mY >= 310 && mY <= 325) {
+				textFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
+				textFont.draw(batch, "http://deathsbreedgames.github.io/", 40, 190);
+				textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+				if(mousePressed && !oldMousePressed) { Gdx.net.openURI("http://deathsbreedgames.github.io/"); }
+			} else { textFont.draw(batch, "http://deathsbreedgames.github.io/", 40, 190); }
 			textFont.draw(batch, "v1.0.1", 450, 25);
 			batch.end();
+			
+			oldMousePressed = mousePressed;
 		}
 	}
 	
