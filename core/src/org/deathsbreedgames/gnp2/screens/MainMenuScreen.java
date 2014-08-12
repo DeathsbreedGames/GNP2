@@ -167,6 +167,7 @@ public class MainMenuScreen extends BaseScreen {
 			otherStage.act(delta);
 			otherStage.draw();
 			
+			// Mouse variables:
 			int mX = Gdx.input.getX();
 			int mY = Gdx.input.getY();
 			boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
@@ -179,6 +180,7 @@ public class MainMenuScreen extends BaseScreen {
 			textFont.draw(batch, "Graphics - Nicolás A. Ortega - CC-BY-SA", 20, 370);
 			textFont.draw(batch, "Music/Sfx - Nicolás A. Ortega - CC-BY-SA", 20, 340);
 			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU Affero GPLv3", 20, 310);
+			// Create link to source-code
 			if(mX >= 20 && mX <= 436 && mY >= 250 && mY <= 265) {
 				textFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
 				textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250);
@@ -186,6 +188,7 @@ public class MainMenuScreen extends BaseScreen {
 				if(mousePressed && !oldMousePressed) { Gdx.net.openURI("https://github.com/DeathsbreedGames/GNP2"); }
 			} else { textFont.draw(batch, "source-code: https://github.com/DeathsbreedGames/GNP2", 20, 250); }
 			textFont.draw(batch, "More by DeathsbreedGames:", 20, 220);
+			// Create link to DeathsbreedGames website
 			if(mX >= 40 && mX <= 294 && mY >= 310 && mY <= 325) {
 				textFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
 				textFont.draw(batch, "http://deathsbreedgames.github.io/", 40, 190);
