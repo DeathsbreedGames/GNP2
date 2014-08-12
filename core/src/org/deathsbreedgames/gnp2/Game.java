@@ -29,6 +29,7 @@ public class Game extends com.badlogic.gdx.Game {
 		
 		// This is used so as to properly dispose of the screens
 		if(currentScreen.getDone()) {
+			currentScreen.dispose();
 			if(currentScreen instanceof SplashScreen) { setScreen(new MainMenuScreen()); }
 			else if(currentScreen instanceof MainMenuScreen) { setScreen(new SelectScreen()); }
 			else if(currentScreen instanceof SelectScreen) {
@@ -39,7 +40,6 @@ public class Game extends com.badlogic.gdx.Game {
 				if(GlobalVars.winner == -1) { setScreen(new MainMenuScreen()); }
 				else { setScreen(new WinScreen(GlobalVars.winner)); }
 			} else if(currentScreen instanceof WinScreen) { setScreen(new MainMenuScreen()); }
-			currentScreen.dispose();
 		}
 	}
 	
