@@ -6,7 +6,7 @@ GNP2 is an improvement on GNP, and on Pong games in general. In GNP2 you can pla
 ### Compiling
 To compile the source-code please refer to the [libGDX build documentation](https://github.com/libgdx/libgdx/wiki/Gradle-on-the-Commandline).
 
-### Contribution
+### Contributing
 To contribute to GNP2 simply create a pull request with you contribution to the project, and (if you wish) add your name/alias to the __@author__ tag at the beginning of the Java file. Just remember that your code will be licensed with the GNU Affero GPLv3 license like the rest of the project.
 
 ### License
