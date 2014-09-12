@@ -195,7 +195,7 @@ public class MainMenuScreen extends BaseScreen {
 				textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 				if(mousePressed && !oldMousePressed) { Gdx.net.openURI("http://deathsbreedgames.github.io/"); }
 			} else { textFont.draw(batch, "http://deathsbreedgames.github.io/", 40, 190); }
-			textFont.draw(batch, "v1.0.1", 450, 25);
+			textFont.draw(batch, "v1.0.2", 450, 25);
 			batch.end();
 			
 			oldMousePressed = mousePressed;
