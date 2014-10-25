@@ -177,9 +177,9 @@ public class MainMenuScreen extends BaseScreen {
 			buttonFont.draw(batch, "Credits", 215, 450);
 			textFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			textFont.draw(batch, "Work - Author - License", 20, 400);
-			textFont.draw(batch, "Graphics - Nicolás A. Ortega - CC-BY-SA", 20, 370);
-			textFont.draw(batch, "Music/Sfx - Nicolás A. Ortega - CC-BY-SA", 20, 340);
-			textFont.draw(batch, "Programming - Nicolás A. Ortega - GNU Affero GPLv3", 20, 310);
+			textFont.draw(batch, "Graphics - DeathsbreedGames - CC-BY-SA", 20, 370);
+			textFont.draw(batch, "Music/Sfx - DeathsbreedGames - CC-BY-SA", 20, 340);
+			textFont.draw(batch, "Programming - DeathsbreedGames - GNU Affero GPLv3", 20, 310);
 			// Create link to source-code
 			if(mX >= 20 && mX <= 436 && mY >= 250 && mY <= 265) {
 				textFont.setColor(0.0f, 1.0f, 0.0f, 1.0f);
